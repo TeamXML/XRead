@@ -1,7 +1,5 @@
 package com.test.helloworld;
 
-import com.test.helloworld.R.id;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -11,6 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.it_s_a_meee_mario.R;
 
 public class MainActivity extends Activity {
 
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void runningMario(){
-		final ImageView mario1 = (ImageView)findViewById(id.mario1);
+		final ImageView mario1 = (ImageView)findViewById(R.id.mario1);
 		final int []imageArray={R.drawable.mario1, R.drawable.mario2};
 		final Handler handler = new Handler();
 		final Animation run = new TranslateAnimation(-90.0f, 700.0f, 0.0f, 0.0f);

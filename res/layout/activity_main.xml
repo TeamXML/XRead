@@ -35,7 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/Mario"
-        android:src="@drawable/mario1"
-        android:visibility="visible" />
+        android:src="@drawable/mario1" />
 
 </RelativeLayout>

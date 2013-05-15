@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">HelloWorld</string>
+    <string name="app_name">It-s-a-meee-Mario</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello World!</string>
-    <string name="Mario">Hello! \nIt\'s a meee - Marioooo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Mario">Hello!\nIt\s a mee - Mariooo!</string>
 
 </resources>
