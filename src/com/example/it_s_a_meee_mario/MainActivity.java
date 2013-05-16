@@ -1,4 +1,4 @@
-package com.test.helloworld;
+package com.example.it_s_a_meee_mario;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,9 +45,10 @@ public class MainActivity extends Activity {
 		final ImageView mario1 = (ImageView)findViewById(R.id.mario1);
 		final int []imageArray={R.drawable.mario1, R.drawable.mario2};
 		final Handler handler = new Handler();
-		final Animation run = new TranslateAnimation(-90.0f, 700.0f, 0.0f, 0.0f);
+		final Animation run = new TranslateAnimation(-90.0f, 1280.0f, 0.0f, 0.0f);
 		run.setDuration(3000);
 		run.setRepeatCount(Animation.INFINITE);
+		run.setFillAfter(true);
 		mario1.startAnimation(run);
 		
 		Runnable runnable = new Runnable() {

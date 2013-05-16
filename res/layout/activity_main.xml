@@ -2,21 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top"
+    android:gravity="center_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-
-    <TextView
-        android:id="@+id/HelloWorldTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="@string/Mario"
-        android:textSize="50sp" />
   
     <ImageView
         android:id="@+id/mario2"
@@ -36,5 +27,15 @@
         android:layout_alignParentLeft="true"
         android:contentDescription="@string/Mario"
         android:src="@drawable/mario1" />
+
+    <TextView
+        android:id="@+id/HelloWorldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/Mario"
+        android:textSize="50sp" />
 
 </RelativeLayout>
