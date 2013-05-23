@@ -10,8 +10,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.it_s_a_meee_mario.R;
-
 public class MainActivity extends Activity {
 
 	
