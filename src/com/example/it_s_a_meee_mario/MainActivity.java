@@ -1,6 +1,5 @@
 /*
  * @author: Maria Formisano
- * @github name: formisano
  */
 package com.example.it_s_a_meee_mario;
 
