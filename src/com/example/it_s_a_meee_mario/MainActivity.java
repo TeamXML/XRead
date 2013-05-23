@@ -1,3 +1,6 @@
+/*
+ * @author: Maria Formisano
+ */
 package com.example.it_s_a_meee_mario;
 
 import android.os.Bundle;
