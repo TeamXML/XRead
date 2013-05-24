@@ -2,39 +2,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:background="@drawable/bckgr2"
+    android:gravity="center_vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/HelloWorldTextView"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="@string/Mario"
-        android:textSize="50sp" />
-  
-    <ImageView
-        android:id="@+id/mario2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/mario2"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/mario2"
-        android:contentDescription="@string/Mario"
-        android:visibility="invisible" />
+        android:layout_alignRight="@+id/progressBar1" />
 
-    <ImageView
-        android:id="@+id/mario1"
+    <ImageButton
+        android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/cancelButton"
+        android:layout_below="@+id/cancelButton"
+        android:layout_marginTop="23dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/refresh_klein2" />
+
+    <ImageButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar1"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/cancel_klein2" />
+
+    <EditText
+        android:id="@+id/editTextURI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:contentDescription="@string/Mario"
-        android:src="@drawable/mario1" />
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/uri"
+        android:inputType="textUri"
+        android:textColor="#707070"
+        android:textSize="19sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editTextURI"
+        android:layout_below="@+id/editTextURI"
+        android:layout_marginTop="22dp" />
+
+    <ImageButton
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cancelButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:src="@drawable/play_klein2" />
 
 </RelativeLayout>

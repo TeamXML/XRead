@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">It-s-a-meee-Mario</string>
+    <string name="app_name">Read</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="Mario">It\'s a meee - Mariooo!</string>
+    <string name="autoCompleteText">http://www.</string>
+    <string name="uri">URI Adresse bitte hier einfügen ...</string>
 
 </resources>

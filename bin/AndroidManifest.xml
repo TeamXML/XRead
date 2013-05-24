@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.it_s_a_meee_mario"
+    package="de.fu.xml.xread"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -10,11 +10,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/mario_retro"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.it_s_a_meee_mario.MainActivity"
+            android:name="de.fu.xml.xread.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
