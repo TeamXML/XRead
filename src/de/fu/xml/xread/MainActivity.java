@@ -5,18 +5,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
 
 public class MainActivity extends Activity {
 	
+	ProgressBar circle;
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    	this.setTitle("");
+    	super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        circle = (ProgressBar)findViewById(id.progressCircle);
+        circle.setVisibility(ProgressBar.INVISIBLE);
         
         //Aufgabe: Autovervollständigung für textfeld mit den Inhalten, die in einem Array von Histories stehen
 
@@ -43,8 +52,10 @@ public class MainActivity extends Activity {
            
     }
     
-    /** Wenn auf Button Cancel geklickt wird, dann soll der aktuelle Prozess abgebrochen werden */
+    /** Wenn auf Button Cancel geklickt wird, dann soll der aktuelle Prozess abgebrochen werden 
+     * @param id */
     public void Button_Cancel(){
+    	
     	Toast toast = Toast.makeText(this, "Vorgang abgebrochen!", Toast.LENGTH_SHORT);
     	toast.show();
     	System.out.println("Es wurde auf Button_Cancel geklickt!");
@@ -61,6 +72,8 @@ public class MainActivity extends Activity {
     public void Button_Play(){
     	Toast toast = Toast.makeText(getBaseContext(), "Starte Download ...", Toast.LENGTH_SHORT);
     	toast.show();
+    	circle.setVisibility(ProgressBar.VISIBLE);
+    	
     	//String uri = textField.toString();
     	
     	//Datenbank-Eintrag der URI
