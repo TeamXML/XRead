@@ -5,13 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
 
 public class MainActivity extends Activity {
