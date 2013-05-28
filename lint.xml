@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="ShowToast">
-        <ignore path="src\com\test\helloworld\MainActivity.java" />
-    </issue>
-</lint>
