@@ -28,7 +28,7 @@
         android:layout_alignLeft="@+id/progressDownload"
         android:layout_marginBottom="18dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/exit3"
+        android:src="@drawable/exit"
         android:contentDescription="@null"
         android:onClick="onButtonClick" />
 
@@ -64,7 +64,7 @@
 	    android:layout_marginTop="30dp"
 	    android:background="#FFFFFF"
 	    android:ems="10"
-	    android:hint="@string/uri"
+	    android:hint="@string/hint"
 	    android:inputType="textUri|text|textAutoComplete"
 	    android:textColor="#000000"
 	    android:textColorHint="#707070"

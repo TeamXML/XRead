@@ -5,7 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="autoCompleteText">http://www.</string>
-    <string name="uri">URI Adresse bitte hier einfügen ...</string>
+    <string name="hint">URI Adresse bitte hier einfügen &#8230;</string>
     <string name="info">Hier steht, was die App ist, was sie kann und warum es so genial war, sie herunterzuladen!! yeah yeah!</string>
+    <string name="intro">An XML, JSON, Linked-Data and Microdata Reader for Android</string>
+    <string name="history">History</string>
 
 </resources>
