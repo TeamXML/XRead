@@ -1,9 +1,9 @@
 package de.fu.xml.xread;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
@@ -27,16 +29,19 @@ public class MainActivity extends Activity {
 	boolean mainIsOpen = true;
 	boolean webcontentIsOpen = false;
 	boolean historyIsOpen = false;
-	private Toast toast;
 	private EditText editText;
 	private String uri;
-	private static final String TAG = "MyActivity";
-
+	private static final String TAG = "MainActivity";
+	private List<Entry> list = new ArrayList<Entry>();
+	private HistoryDataSource dataSource;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
     	this.setTitle("");
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main2);
+        dataSource = new HistoryDataSource(this);
+        
 	}
 	
 	public String getUri() {
@@ -63,7 +68,7 @@ public class MainActivity extends Activity {
         		break;
         	}
         	default:{
-                Log.e("MainActivity.java", "Kein Button mit der ID: " + view.getId() + " vorhanden.");
+                Log.i(TAG, "Kein Button mit der ID: " + view.getId() + " vorhanden.");
                 break;
         	}
     	}
@@ -83,13 +88,11 @@ public class MainActivity extends Activity {
 			imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 		
 		if(editTextString.length() == 0){
-			toast = Toast.makeText(getApplicationContext(), "Textfeld ist leer. Kein Abbruch notwendig!", Toast.LENGTH_SHORT);
-	    	toast.show();
+			Toast.makeText(getApplicationContext(), "Textfeld ist leer. Kein Abbruch notwendig!", Toast.LENGTH_SHORT).show();
 		}
 		else{
 			editText.setText("");
-			toast = Toast.makeText(getApplicationContext(), "Vorgang abgebrochen.", Toast.LENGTH_SHORT);
-	    	toast.show();
+			Toast.makeText(getApplicationContext(), "Vorgang abgebrochen.", Toast.LENGTH_SHORT).show();
 		}
 	}
        
@@ -105,29 +108,56 @@ public class MainActivity extends Activity {
     	
     	//Wenn URL Feld leer
     	if(urlString.length() <= 0){
-    		toast = Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT);
-    		toast.show();
+    		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
     	}
     	else{
-    		boolean validURL = validURL(urlString);
+    		
     		//Wenn URL invalide
-    		if(!validURL){
-    			toast = Toast.makeText(getApplicationContext(), "Diese URL gibt es nicht ...", Toast.LENGTH_SHORT);
-        		toast.show();
-    		}
-    		//sonst: Feld nicht leer und URL valide
-    		else{
+    		if(!urlString.startsWith("http://")){
+    			urlString="http://"+urlString;
     			setUri(urlString);
-    			webview();
-    	    }
+    			
+    		}
+    		//danach: Feld nicht leer und URL valide
+    		setUri(urlString);
+			webview();
+			String date = getDate();
+			String time = getTime();
+			//Datenbank-Eintrag
+			dataSource.open();
+			dataSource.createEntry(date, time, urlString);
+			dataSource.close();
+    	    
     	}
     	
     }
-    
+  
+	private String getDate() {
+    	//Zeitstempel
+    	Calendar cal = Calendar.getInstance();
+    	int tag = cal.get(Calendar.DAY_OF_MONTH);
+		int monat = cal.get(Calendar.MONTH);
+		int jahr = cal.get(Calendar.YEAR);
+		String date = tag+"."+monat+"."+jahr;
+		return date;
+	}
+   
+    private String getTime(){
+    	Calendar cal = Calendar.getInstance();
+    	int stunde = cal.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		//int sekunde = cal.get(Calendar.SECOND);
+		String time = stunde+":"+minute+" Uhr";
+		return time;
+    }
+	
     private void webview(){
     	setContentView(R.layout.webcontent);
     	webcontentIsOpen = true;
     	mainIsOpen = false;
+    	historyIsOpen = false;
+    	EditText editText = (EditText)findViewById(id.editText);
+    	editText.setText(getUri());
     	
     	WebView webview = (WebView)findViewById(id.webView);
     	final Builder alert = new AlertDialog.Builder(this);
@@ -167,37 +197,40 @@ public class MainActivity extends Activity {
 		});
 		webview.loadUrl(getUri());
     }
-
+        
+    //TODO
     /** Check, ob URI gültig ist*/
-	private boolean validURL(String urlString) {
-		boolean result = false;
-		URL url;
-		URLConnection connection;
-		try {
-			url = new URL(urlString);
-			connection = url.openConnection();
-			if(connection.getInputStream() == null) result = false;
-			else result = true;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
    
+	//TODO
 	/** öffnet View, wo alle URIs gelistet sind, die aufgerufen sind (mit TimeStamp)*/ 
+
 	public void history(){
+		setContentView(R.layout.history);
+		
 		mainIsOpen = false;
 		historyIsOpen = true;
-		setContentView(R.layout.history);
+		webcontentIsOpen = false;
+		
+		list.clear();
+		
+		try {
+			dataSource.open();
+			list = dataSource.getAllEntries();
+			dataSource.close();
+		} catch (Exception e) {
+			Toast.makeText(this, "Fehler beim Auslesen: "+e.toString(), Toast.LENGTH_LONG).show();
+		}
+		
+		ArrayAdapter<Entry> adapter = new ArrayAdapter<Entry>(MainActivity.this, android.R.layout.simple_list_item_1, list);
+		ListView lview = (ListView)findViewById(R.id.listView1);
+		lview.setAdapter(adapter);
 	}
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event){
 		
 		//wenn auf zurückButton geklickt wird und man in History ist
-		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && historyIsOpen){
+		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && historyIsOpen && !webcontentIsOpen){
 			mainIsOpen = true;
 			historyIsOpen = false;
 			setContentView(R.layout.main2);
@@ -205,7 +238,7 @@ public class MainActivity extends Activity {
 		}
 		
 		//wenn auf zurückButton geklickt wird und man in WebContent ist
-		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && webcontentIsOpen){
+		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && webcontentIsOpen && !historyIsOpen){
 			mainIsOpen = true;
 			webcontentIsOpen = false;
 			setContentView(R.layout.main2);

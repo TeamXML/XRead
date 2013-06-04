@@ -16,7 +16,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/hint"
-        android:textColor="#858585" />
+        android:textColor="#858585"
+        android:inputType="textUri" />
 
     <ImageButton
         android:id="@+id/stopButton"
