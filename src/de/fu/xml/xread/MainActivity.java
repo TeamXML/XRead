@@ -6,13 +6,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,11 +24,13 @@ import de.fu.xml.xread.R.id;
 
 public class MainActivity extends Activity {
 	
-	ProgressBar circle;
 	boolean mainIsOpen = true;
-	Toast toast;
+	boolean webcontentIsOpen = false;
+	boolean historyIsOpen = false;
+	private Toast toast;
 	private EditText editText;
-	Uri uri;
+	private String uri;
+	private static final String TAG = "MyActivity";
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main2);
 	}
 	
-	public Uri getUri() {
+	public String getUri() {
 		return uri;
 	}
 
-	public void setUri(Uri uri) {
+	public void setUri(String uri) {
 		this.uri = uri;
 	}
 
@@ -86,8 +92,7 @@ public class MainActivity extends Activity {
 	    	toast.show();
 		}
 	}
-    
-    
+       
     /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     private void play(){
     	
@@ -112,19 +117,55 @@ public class MainActivity extends Activity {
     		}
     		//sonst: Feld nicht leer und URL valide
     		else{
-    			setContentView(R.layout.webcontent);
-    			
-    			//ProgressWheel erscheint
-    			ProgressBar wheel = (ProgressBar)findViewById(id.progressWheel);
-    			wheel.setVisibility(ProgressBar.VISIBLE);
-    			
-    			WebView webview = (WebView)findViewById(id.webView);
-    			String url = getUri().toString();
-    			webview.loadUrl(url);
-    	
+    			setUri(urlString);
+    			webview();
     	    }
     	}
     	
+    }
+    
+    private void webview(){
+    	setContentView(R.layout.webcontent);
+    	webcontentIsOpen = true;
+    	mainIsOpen = false;
+    	
+    	WebView webview = (WebView)findViewById(id.webView);
+    	final Builder alert = new AlertDialog.Builder(this);
+
+    	
+    	final ProgressBar wheel = (ProgressBar)findViewById(id.progressWheel);
+    	wheel.setVisibility(View.VISIBLE);
+    	
+		webview.setWebViewClient(new WebViewClient(){
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		         Log.i(TAG, "Verarbeitung ...");
+		         view.loadUrl(url);
+		         return true;
+			}
+		
+			@Override
+			 public void onPageFinished(WebView view, String url) {
+				Log.i(TAG, "Fertig geladen ..." +url);
+				wheel.setVisibility(View.INVISIBLE);
+			 }
+		
+			//Fehlerabhandlung
+			 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+			     Log.e(TAG, "Error: " + description);
+			     Toast.makeText(getBaseContext(), "Hier ist was schief gelaufen!! " + description, Toast.LENGTH_SHORT).show();
+			     alert.setTitle("Error");
+			     alert.setMessage(description);
+			     
+			     alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			    	 public void onClick(DialogInterface dialog, int which) {
+			    		 return;
+			    	 }
+			     });
+			     alert.show();
+			 }
+		});
+		webview.loadUrl(getUri());
     }
 
     /** Check, ob URI gültig ist*/
@@ -147,6 +188,29 @@ public class MainActivity extends Activity {
    
 	/** öffnet View, wo alle URIs gelistet sind, die aufgerufen sind (mit TimeStamp)*/ 
 	public void history(){
+		mainIsOpen = false;
+		historyIsOpen = true;
 		setContentView(R.layout.history);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event){
+		
+		//wenn auf zurückButton geklickt wird und man in History ist
+		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && historyIsOpen){
+			mainIsOpen = true;
+			historyIsOpen = false;
+			setContentView(R.layout.main2);
+			return true;
+		}
+		
+		//wenn auf zurückButton geklickt wird und man in WebContent ist
+		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && webcontentIsOpen){
+			mainIsOpen = true;
+			webcontentIsOpen = false;
+			setContentView(R.layout.main2);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
