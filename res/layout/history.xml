@@ -12,7 +12,8 @@
         android:layout_below="@+id/textView"
         android:textAlignment="center"
         android:textFilterEnabled="true"
-        android:visibility="visible" >
+        android:visibility="visible"
+        android:background="#838383">
 
     </ListView>
 

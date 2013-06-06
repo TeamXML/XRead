@@ -2,7 +2,6 @@ package de.fu.xml.xread;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -17,8 +16,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,32 +30,37 @@ public class MainActivity extends Activity {
 	boolean mainIsOpen = true;
 	boolean webcontentIsOpen = false;
 	boolean historyIsOpen = false;
-	private EditText editText;
 	private String uri;
 	private static final String TAG = "MainActivity";
 	private List<Entry> list = new ArrayList<Entry>();
 	private HistoryDataSource dataSource;
 	
+	ImageButton stopButton;
+	ImageButton playButton;
+	ImageButton historyButton;
+	EditText editText;
+	WebView webview;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
     	this.setTitle("");
     	super.onCreate(savedInstanceState);
-        setContentView(R.layout.main2);
+        setContentView(R.layout.main);
         dataSource = new HistoryDataSource(this);
         
+        stopButton = (ImageButton)findViewById(id.stopButton);
+    	playButton = (ImageButton)findViewById(id.playButton);
+    	historyButton = (ImageButton)findViewById(id.historyButton);
+    	editText = (EditText)findViewById(id.editText);
+    	webview = (WebView)findViewById(id.webView);
+    	
 	}
 	
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
 
     /** Handler, wenn auf Button geklickt wird - Achtung: in Layout muss Methodenname verankert sein!*/
 	public void onButtonClick(View view){
-    	switch (view.getId()) {
+    	
+		switch (view.getId()) {
         	case id.stopButton:{
         		stop();
         		break;
@@ -75,59 +81,55 @@ public class MainActivity extends Activity {
            
     }
 	
+
 	private void stop(){
-		editText = (EditText)findViewById(id.editText);
-		String editTextString = editText.getText().toString();
+		EditText editText = (EditText)findViewById(id.editText);
+		ProgressBar progressWheel = (ProgressBar)findViewById(id.progressWheel);
 		
-		ProgressBar wheel = (ProgressBar)findViewById(id.progressWheel);
-		wheel.setVisibility(View.INVISIBLE);
 		
-		//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
-		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		if(imm.isActive())
-			imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-		
-		if(editTextString.length() == 0){
-			Toast.makeText(getApplicationContext(), "Textfeld ist leer. Kein Abbruch notwendig!", Toast.LENGTH_SHORT).show();
-		}
+		if(editText.length() <= 0) 
+    		Toast.makeText(getApplicationContext(), "Textfeld ist leer. Kein Abbruch notwendig!", Toast.LENGTH_SHORT).show();
 		else{
-			editText.setText("");
+			setUri("");
+			editText.setText(getUri());
 			Toast.makeText(getApplicationContext(), "Vorgang abgebrochen.", Toast.LENGTH_SHORT).show();
+			progressWheel.setVisibility(View.INVISIBLE);
+			setContentView(R.layout.main);
 		}
 	}
        
     /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     private void play(){
+    	EditText editText = (EditText)findViewById(id.editText);
     	
-    	//Tastatur ausblenden	
-		InputMethodManager input = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		input.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    	    	
-    	editText = (EditText)findViewById(id.editText);
-    	String urlString = editText.getText().toString();
-    	
-    	//Wenn URL Feld leer
-    	if(urlString.length() <= 0){
-    		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
-    	}
-    	else{
+    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
+    	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    	if(imm.isActive())
+    		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     		
+    	//Wenn URL Feld leer
+    	if(editText.length() <= 0)
+    		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
+    	else{
+    		String urlString = editText.getText().toString();
     		//Wenn URL invalide
-    		if(!urlString.startsWith("http://")){
+    		if(!urlString.startsWith("http://"))
     			urlString="http://"+urlString;
-    			setUri(urlString);
-    			
-    		}
+    	
     		//danach: Feld nicht leer und URL valide
     		setUri(urlString);
-			webview();
+			
+    		editText.setText(getUri());
+			
 			String date = getDate();
 			String time = getTime();
 			//Datenbank-Eintrag
 			dataSource.open();
 			dataSource.createEntry(date, time, urlString);
 			dataSource.close();
-    	    
+			
+			webview();
+			
     	}
     	
     }
@@ -146,38 +148,41 @@ public class MainActivity extends Activity {
     	Calendar cal = Calendar.getInstance();
     	int stunde = cal.get(Calendar.HOUR_OF_DAY);
 		int minute = cal.get(Calendar.MINUTE);
-		//int sekunde = cal.get(Calendar.SECOND);
 		String time = stunde+":"+minute+" Uhr";
 		return time;
     }
 	
     private void webview(){
     	setContentView(R.layout.webcontent);
+    	
+    	EditText editText = (EditText)findViewById(id.editText);
+		editText.setText(getUri());
+    	
     	webcontentIsOpen = true;
     	mainIsOpen = false;
     	historyIsOpen = false;
-    	EditText editText = (EditText)findViewById(id.editText);
-    	editText.setText(getUri());
+    	
+    	final Builder alert = new AlertDialog.Builder(this);
+    	
+    	final ProgressBar progressWheel = (ProgressBar)findViewById(id.progressWheel);
+    	
     	
     	WebView webview = (WebView)findViewById(id.webView);
-    	final Builder alert = new AlertDialog.Builder(this);
-
-    	
-    	final ProgressBar wheel = (ProgressBar)findViewById(id.progressWheel);
-    	wheel.setVisibility(View.VISIBLE);
-    	
 		webview.setWebViewClient(new WebViewClient(){
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-		         Log.i(TAG, "Verarbeitung ...");
-		         view.loadUrl(url);
-		         return true;
+				stopButton.setImageResource(R.drawable.android_stop);
+				progressWheel.setVisibility(View.VISIBLE);
+				Log.i(TAG, "Verarbeitung ...");
+		        view.loadUrl(url);
+		        return true;
 			}
 		
 			@Override
 			 public void onPageFinished(WebView view, String url) {
+				stopButton.setImageResource(R.drawable.android_refresh);
 				Log.i(TAG, "Fertig geladen ..." +url);
-				wheel.setVisibility(View.INVISIBLE);
+				progressWheel.setVisibility(View.INVISIBLE);
 			 }
 		
 			//Fehlerabhandlung
@@ -198,20 +203,12 @@ public class MainActivity extends Activity {
 		webview.loadUrl(getUri());
     }
         
-    //TODO
-    /** Check, ob URI gültig ist*/
-   
-	//TODO
-	/** öffnet View, wo alle URIs gelistet sind, die aufgerufen sind (mit TimeStamp)*/ 
-
 	public void history(){
 		setContentView(R.layout.history);
 		
 		mainIsOpen = false;
 		historyIsOpen = true;
 		webcontentIsOpen = false;
-		
-		list.clear();
 		
 		try {
 			dataSource.open();
@@ -221,10 +218,36 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, "Fehler beim Auslesen: "+e.toString(), Toast.LENGTH_LONG).show();
 		}
 		
-		ArrayAdapter<Entry> adapter = new ArrayAdapter<Entry>(MainActivity.this, android.R.layout.simple_list_item_1, list);
-		ListView lview = (ListView)findViewById(R.id.listView1);
+		ArrayAdapter<Entry> adapter = new ArrayAdapter<Entry>(this, android.R.layout.simple_list_item_1, list);
+		final ListView lview = (ListView)findViewById(R.id.listView1);
 		lview.setAdapter(adapter);
+		lview.setClickable(true);
+		lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				String itemString = lview.getItemAtPosition(arg2).toString();
+				
+				String[] list = itemString.split(" ");
+				String link = list[1];
+				link = link.replace("besucht", "");
+				link = link.replace("\n", "");
+				
+				setUri(link);
+				String date = getDate();
+				String time = getTime();
+				//Datenbank-Eintrag
+				dataSource.open();
+				dataSource.createEntry(date, time, getUri());
+				dataSource.close();
+				
+				webview();
+			}
+		
+		});
 	}
+	
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event){
@@ -233,7 +256,7 @@ public class MainActivity extends Activity {
 		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && historyIsOpen && !webcontentIsOpen){
 			mainIsOpen = true;
 			historyIsOpen = false;
-			setContentView(R.layout.main2);
+			setContentView(R.layout.main);
 			return true;
 		}
 		
@@ -241,9 +264,17 @@ public class MainActivity extends Activity {
 		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && webcontentIsOpen && !historyIsOpen){
 			mainIsOpen = true;
 			webcontentIsOpen = false;
-			setContentView(R.layout.main2);
+			setContentView(R.layout.main);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 }
