@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
        
     /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     private void play(){
-    	EditText editText = (EditText)findViewById(id.editText);
+	EditText editText = (EditText)findViewById(id.editText);
     	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
