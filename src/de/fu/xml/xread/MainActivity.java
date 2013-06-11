@@ -81,11 +81,10 @@ public class MainActivity extends Activity {
            
     }
 	
-
+	/**	Wenn auf Button Stop geklickt wird, dann wird der Vorgang des Ladens abgebochen. */
 	private void stop(){
 		EditText editText = (EditText)findViewById(id.editText);
 		ProgressBar progressWheel = (ProgressBar)findViewById(id.progressWheel);
-		
 		
 		if(editText.length() <= 0) 
     		Toast.makeText(getApplicationContext(), "Textfeld ist leer. Kein Abbruch notwendig!", Toast.LENGTH_SHORT).show();
@@ -100,9 +99,9 @@ public class MainActivity extends Activity {
        
     /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     private void play(){
-    	EditText editText = (EditText)findViewById(id.editText);
+    	editText = (EditText)findViewById(id.editText);
     	
-    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
+//    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     	if(imm.isActive())
     		imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -155,7 +154,7 @@ public class MainActivity extends Activity {
     private void webview(){
     	setContentView(R.layout.webcontent);
     	
-    	EditText editText = (EditText)findViewById(id.editText);
+    	//EditText editText = (EditText)findViewById(id.editText);
 		editText.setText(getUri());
     	
     	webcontentIsOpen = true;
