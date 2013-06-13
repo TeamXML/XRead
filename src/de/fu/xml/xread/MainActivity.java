@@ -2,7 +2,6 @@ package de.fu.xml.xread;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -199,10 +198,10 @@ public class MainActivity extends Activity {
     }
         
     //TODO
-    /** Check, ob URI gültig ist*/
+    /** Check, ob URI gï¿½ltig ist*/
    
 	//TODO
-	/** öffnet View, wo alle URIs gelistet sind, die aufgerufen sind (mit TimeStamp)*/ 
+	/** ï¿½ffnet View, wo alle URIs gelistet sind, die aufgerufen sind (mit TimeStamp)*/ 
 
 	public void history(){
 		setContentView(R.layout.history);
@@ -229,7 +228,7 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event){
 		
-		//wenn auf zurückButton geklickt wird und man in History ist
+		//wenn auf zurï¿½ckButton geklickt wird und man in History ist
 		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && historyIsOpen && !webcontentIsOpen){
 			mainIsOpen = true;
 			historyIsOpen = false;
@@ -237,7 +236,7 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		
-		//wenn auf zurückButton geklickt wird und man in WebContent ist
+		//wenn auf zurï¿½ckButton geklickt wird und man in WebContent ist
 		if(keyCode == KeyEvent.KEYCODE_BACK && !mainIsOpen && webcontentIsOpen && !historyIsOpen){
 			mainIsOpen = true;
 			webcontentIsOpen = false;
