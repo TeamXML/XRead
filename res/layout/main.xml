@@ -3,13 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#FFFFFF"
-    android:gravity="fill_horizontal" >
+    android:gravity="center_horizontal" >
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/playButton"
+        android:layout_below="@+id/playButtonMain"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -21,10 +21,10 @@
         android:textColor="#858585" />
 
     <ImageButton
-        android:id="@+id/stopButton"
+        android:id="@+id/stopButtonMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/playButton"
+        android:layout_alignBottom="@+id/playButtonMain"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -34,10 +34,10 @@
         android:onClick="onButtonClick" />
     
     <ImageButton
-        android:id="@+id/historyButton"
+        android:id="@+id/historyButtonMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/playButton"
+        android:layout_alignBottom="@+id/playButtonMain"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -47,7 +47,7 @@
         android:onClick="onButtonClick" />
 
     <ImageButton
-        android:id="@+id/playButton"
+        android:id="@+id/playButtonMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -71,19 +71,19 @@
         android:textSize="20sp" />
 
     <ProgressBar
-        android:id="@+id/progressWheel"
+        android:id="@+id/progressWheelMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/editTextMain"
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/progressWheel"
+        android:layout_below="@+id/progressWheelMain"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@null"
         android:src="@drawable/xreadlogo" />
 
