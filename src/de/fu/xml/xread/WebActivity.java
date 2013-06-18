@@ -177,17 +177,24 @@ public class WebActivity extends Activity{
     	
     	final Builder alert = new AlertDialog.Builder(this);
     	
-    	
-    	WebView webview = (WebView)findViewById(id.webView);
-		webview.setWebViewClient(new WebViewClient(){
+    	webview.setWebViewClient(new WebViewClient(){
 			
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				Toast.makeText(getApplicationContext(), "Lädt ...", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "Lädt ...", Toast.LENGTH_SHORT).show();
 				stopButton.setVisibility(View.VISIBLE);
 				refreshButton.setVisibility(View.INVISIBLE);
 				progressWheel.setVisibility(View.VISIBLE);
+				ButtonMethods.setUri(url);
+				editText.setText(ButtonMethods.getUri());
 		        view.loadUrl(url);
+		        
+		        //Datenbank-Eintrag
+		        String date = ButtonMethods.getDate();
+				String time = ButtonMethods.getTime();
+		        dataSource.open();
+				dataSource.createEntry(date, time, url);
+				dataSource.close();
 		        return true;
 			}
 		
@@ -216,6 +223,14 @@ public class WebActivity extends Activity{
 		webview.loadUrl(ButtonMethods.getUri());
 		
     }
+	
+	public void myHTMLintoWebview(String html){
+		html = "<html><body><h1>Hello, WebView</h1>" +
+                "<h1>Heading 1</h1><p>This is a sample paragraph.</p>" +
+                "</body></html>";
+		webview.loadData(html, "text/html", "UTF-8");
+		editText.setText("");
+	}
      
     @Override
 	public boolean onKeyDown(int keyCode, KeyEvent event){
