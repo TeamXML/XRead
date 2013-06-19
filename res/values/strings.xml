@@ -9,5 +9,6 @@
     <string name="info">Hier steht, was die App ist, was sie kann und warum es so genial war, sie herunterzuladen!! yeah yeah!</string>
     <string name="intro">An XML, JSON, Linked-Data and Microdata Reader for Android</string>
     <string name="history">History</string>
+    <string name="memorystore_data">memorystore.data</string>
 
 </resources>

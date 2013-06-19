@@ -1,7 +1,6 @@
 package de.fu.xml.xread.main;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -28,8 +27,10 @@ import org.openrdf.repository.RepositoryResult;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
-import org.openrdf.sail.memory.MemoryStore;
 
+import android.content.Context;
+import android.util.Log;
+import de.fu.xml.xread.main.any23extension.AndroidMemoryStore;
 import de.fu.xml.xread.main.model.RDFTupel;
 
 /**
@@ -45,12 +46,14 @@ public class RDFTranslator {
 	private Repository _repository;
 	private Any23 _runner;
 
-	private RDFTranslator(String repositoryFile) throws RepositoryException {
-		File dataDir = new File(repositoryFile);
+	private RDFTranslator(Context context, String repositoryFile)
+			throws RepositoryException {
 
-		_repository = new SailRepository(new MemoryStore(dataDir));
+		_repository = new SailRepository(new AndroidMemoryStore(context,
+				repositoryFile));
 		_repository.initialize();
 		_runner = new Any23();
+		_runner.setHTTPUserAgent("XRead");
 	}
 
 	/**
@@ -58,10 +61,12 @@ public class RDFTranslator {
 	 * 
 	 * @return a RDFTranslator instance using the mainRepository file
 	 * @throws RepositoryException
+	 * @throws IOException
 	 */
-	public static RDFTranslator getInstance() throws RepositoryException {
+	public static RDFTranslator getInstance(Context context)
+			throws RepositoryException, IOException {
 		if (_instance == null) {
-			_instance = new RDFTranslator("mainRepository");
+			_instance = new RDFTranslator(context, "main_repository");
 		}
 
 		return _instance;
@@ -72,10 +77,12 @@ public class RDFTranslator {
 	 * 
 	 * @return a RDFTranslator instance using the testRepository file
 	 * @throws RepositoryException
+	 * @throws IOException
 	 */
-	public static RDFTranslator getTestInstance() throws RepositoryException {
+	public static RDFTranslator getTestInstance(Context context)
+			throws RepositoryException, IOException {
 		if (_instance == null) {
-			_instance = new RDFTranslator("testRepository");
+			_instance = new RDFTranslator(context, "test_repository");
 		}
 
 		return _instance;
@@ -83,40 +90,54 @@ public class RDFTranslator {
 
 	// TODO: Error handling; especially 404
 	public String translateResource(String uri) {
-		String result = "";
+		String result = null;
 		URI context = _repository.getValueFactory().createURI(uri);
-		
+
+		RepositoryConnection connection = null;
+
 		try {
 			extractResourceToRepository(uri);
-			result = translateStatementsToRDFXML(getStatementsForContext(context));
+			connection = _repository.getConnection();
+			RepositoryResult<Statement> statements = connection.getStatements(
+					null, null, null, true);
+			result = translateStatementsToRDFXML(statements);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
 		} catch (RDFHandlerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
 		} catch (ExtractionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
 		} catch (TripleHandlerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e("RDFTranslator: ", "An exception occured! ", e);
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (RepositoryException e) {
+				//TODO Auto-generated catch block
+				Log.e("RDFTranslator: ", "An exception occured! ", e);
+			}
 		}
 
 		return result;
 	}
 
 	private String translateStatementsToRDFXML(
-			RepositoryResult<Statement> statements) throws RepositoryException, RDFHandlerException, IOException {
-		
+			RepositoryResult<Statement> statements) throws RepositoryException,
+			RDFHandlerException, IOException {
+
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		RDFXMLPrettyWriter writer = new RDFXMLPrettyWriter(stream);				
+		RDFXMLPrettyWriter writer = new RDFXMLPrettyWriter(stream);
 
 		writer.startRDF();
 
@@ -128,20 +149,9 @@ public class RDFTranslator {
 		writer.endRDF();
 		writer.flush();
 		writer.close();
-		
-		return stream.toString("UTF-8");
-		
-	}
 
-	private RepositoryResult<Statement> getStatementsForContext(URI context) throws RepositoryException {
-		RepositoryResult<Statement> result;
-		
-		RepositoryConnection conn = _repository.getConnection();
-		
-		 result = conn.getStatements(null, null, null, true, context);
-		 
-		 conn.close();
-		 return result;
+		return stream.toString("UTF-8");
+
 	}
 
 	private void extractResourceToRepository(String uri) throws IOException,

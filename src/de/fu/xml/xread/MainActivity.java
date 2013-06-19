@@ -1,14 +1,18 @@
 package de.fu.xml.xread;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import org.openrdf.repository.RepositoryException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,6 +28,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.main.RDFTranslator;
 
 public class MainActivity extends Activity {
 	
@@ -52,8 +57,7 @@ public class MainActivity extends Activity {
     	playButton = (ImageButton)findViewById(id.playButton);
     	historyButton = (ImageButton)findViewById(id.historyButton);
     	editText = (EditText)findViewById(id.editText);
-    	webview = (WebView)findViewById(id.webView);
-    	
+    	webview = (WebView)findViewById(id.webView);    	    
 	}
 	
 
@@ -99,6 +103,27 @@ public class MainActivity extends Activity {
        
     /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     private void play(){
+    	
+    	//TODO: nur zu testzwecken! Gleich wieder entfernen!
+    	AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
+
+			@Override
+			protected String doInBackground(String... params) {
+				RDFTranslator mainTranslator;
+				try {
+					mainTranslator = RDFTranslator.getInstance(getApplicationContext());
+					Log.i(TAG, "MainTranslator: ");
+					String translateResource = mainTranslator.translateResource("http://linkedgeodata.org/triplify/node264695865");
+					Log.i(TAG, translateResource);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					Log.e(TAG, "Exception: ", e);
+				}
+				return null;
+			}
+		};
+		task.execute("");    	    	    	    
+    	
     	editText = (EditText)findViewById(id.editText);
     	
 //    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
