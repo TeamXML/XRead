@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.main.transformer.GeoDataTransformer;
 
 public class MainActivity extends Activity {
 	
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
     	progressWheel = (ProgressBar)findViewById(id.progressWheelMain);
 
     	dataSource = new HistoryDataSource(this);
+    	new GeoDataTransformer(this.getApplicationContext());
     	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
