@@ -6,10 +6,10 @@
     android:gravity="top" >
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextWeb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/playButton"
+        android:layout_below="@+id/playButtonWeb"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -20,10 +20,10 @@
         android:inputType="textUri" />
 
     <ImageButton
-        android:id="@+id/stopButton"
+        android:id="@+id/stopButtonWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/playButton"
+        android:layout_alignBottom="@+id/playButtonWeb"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -31,12 +31,26 @@
         android:src="@drawable/android_stop"
         android:contentDescription="@null"
         android:onClick="onButtonClick" />
-
+    
     <ImageButton
-        android:id="@+id/historyButton"
+        android:id="@+id/refreshButtonWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/playButton"
+        android:layout_alignBottom="@+id/playButtonWeb"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/android_refresh"
+        android:contentDescription="@null"
+        android:onClick="onButtonClick"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/historyButtonWeb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/playButtonWeb"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -46,7 +60,7 @@
         android:onClick="onButtonClick" />
 
     <ImageButton
-        android:id="@+id/playButton"
+        android:id="@+id/playButtonWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -59,10 +73,10 @@
         android:onClick="onButtonClick" />
 
     <ProgressBar
-        android:id="@+id/progressWheel"
+        android:id="@+id/progressWheelWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/editTextWeb"
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
 
@@ -71,7 +85,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/progressWheel"
+        android:layout_below="@+id/progressWheelWeb"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
