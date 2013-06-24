@@ -3,9 +3,7 @@ package de.fu.xml.xread;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.main.RDFTranslator;
+import de.fu.xml.xread.main.transformer.GeoDataTransformer;
 
 public class MainActivity extends Activity {
 	
@@ -43,6 +41,7 @@ public class MainActivity extends Activity {
     	progressWheel = (ProgressBar)findViewById(id.progressWheelMain);
 
     	dataSource = new HistoryDataSource(this);
+    	new GeoDataTransformer(this.getApplicationContext());
     	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -96,26 +95,6 @@ public class MainActivity extends Activity {
 	
 	 /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     public void playMain(){
-    	//TODO: nur zu testzwecken! Gleich wieder entfernen!
-    	AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
-
-			@Override
-			protected String doInBackground(String... params) {
-				RDFTranslator mainTranslator;
-				try {
-					mainTranslator = RDFTranslator.getInstance(getApplicationContext());
-					Log.i(TAG, "MainTranslator: ");
-					String translateResource = mainTranslator.translateResource("http://linkedgeodata.org/triplify/node264695865");
-					Log.i(TAG, translateResource);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					Log.e(TAG, "Exception: ", e);
-				}
-				return null;
-			}
-		};
-		task.execute("");    
-    	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     	if(imm.isAcceptingText())
