@@ -97,24 +97,24 @@ public class MainActivity extends Activity {
 	 /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     public void playMain(){
     	//TODO: nur zu testzwecken! Gleich wieder entfernen!
-//    	AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
-//
-//			@Override
-//			protected String doInBackground(String... params) {
-//				RDFTranslator mainTranslator;
-//				try {
-//					mainTranslator = RDFTranslator.getInstance(getApplicationContext());
-//					Log.i(TAG, "MainTranslator: ");
-//					String translateResource = mainTranslator.translateResource("http://linkedgeodata.org/triplify/node264695865");
-//					Log.i(TAG, translateResource);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					Log.e(TAG, "Exception: ", e);
-//				}
-//				return null;
-//			}
-//		};
-//		task.execute("");    
+    	AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
+
+			@Override
+			protected String doInBackground(String... params) {
+				RDFTranslator mainTranslator;
+				try {
+					mainTranslator = RDFTranslator.getInstance(getApplicationContext());
+					Log.i(TAG, "MainTranslator: ");
+					String translateResource = mainTranslator.translateResource("http://linkedgeodata.org/triplify/node264695865");
+					Log.i(TAG, translateResource);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					Log.e(TAG, "Exception: ", e);
+				}
+				return null;
+			}
+		};
+		task.execute("");    
     	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

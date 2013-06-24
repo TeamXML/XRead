@@ -1,5 +1,7 @@
 package de.fu.xml.xread.main;
 
+import info.aduna.io.IOUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,12 +14,12 @@ import org.apache.any23.filter.IgnoreAccidentalRDFa;
 import org.apache.any23.http.HTTPClient;
 import org.apache.any23.source.DocumentSource;
 import org.apache.any23.source.HTTPDocumentSource;
+import org.apache.any23.writer.RDFXMLWriter;
 import org.apache.any23.writer.ReportingTripleHandler;
 import org.apache.any23.writer.RepositoryWriter;
 import org.apache.any23.writer.TripleHandler;
 import org.apache.any23.writer.TripleHandlerException;
 import org.apache.commons.httpclient.URIException;
-import org.apache.commons.httpclient.util.URIUtil;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.repository.Repository;
@@ -45,6 +47,7 @@ public class RDFTranslator {
 	private static RDFTranslator _instance;
 	private Repository _repository;
 	private Any23 _runner;
+	private static final String TAG = "RDFTranslator";
 
 	private RDFTranslator(Context context, String repositoryFile)
 			throws RepositoryException {
@@ -103,29 +106,29 @@ public class RDFTranslator {
 			result = translateStatementsToRDFXML(statements);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} catch (RDFHandlerException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} catch (ExtractionException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} catch (TripleHandlerException e) {
 			// TODO Auto-generated catch block
-			Log.e("RDFTranslator: ", "An exception occured! ", e);
+			Log.e(TAG, "An exception occured! ", e);
 		} finally {
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (RepositoryException e) {
-				//TODO Auto-generated catch block
-				Log.e("RDFTranslator: ", "An exception occured! ", e);
+				// TODO Auto-generated catch block
+				Log.e(TAG, "An exception occured! ", e);
 			}
 		}
 
@@ -157,11 +160,24 @@ public class RDFTranslator {
 	private void extractResourceToRepository(String uri) throws IOException,
 			RepositoryException, URISyntaxException, URIException,
 			ExtractionException, TripleHandlerException {
-		HTTPClient client = _runner.getHTTPClient();
-		RepositoryConnection connection = _repository.getConnection();
 
-		DocumentSource source = new HTTPDocumentSource(client,
-				URIUtil.encodeQuery(uri));
+		HTTPClient client = _runner.getHTTPClient();
+
+		DocumentSource source = new HTTPDocumentSource(client, uri);
+
+		Log.i(TAG, "Direct to output: ");
+		Log.i(TAG, "content type: " + source.getContentType());
+		Log.i(TAG, "content: " + IOUtil.readString(source.openInputStream()));
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		TripleHandler outputHandler = new RDFXMLWriter(os);
+
+		_runner.extract(source, outputHandler);
+
+		outputHandler.close();
+
+		Log.i(TAG, os.toString("UTF-8"));
+
+		RepositoryConnection connection = _repository.getConnection();
 
 		TripleHandler connectionHandler = new RepositoryWriter(connection);
 		TripleHandler handler = new ReportingTripleHandler(

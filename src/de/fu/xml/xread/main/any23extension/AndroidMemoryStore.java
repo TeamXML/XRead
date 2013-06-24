@@ -26,7 +26,7 @@ public class AndroidMemoryStore extends MemoryStore {
 	protected void initializeInternal() throws SailException {
 		logger.debug("Initializing Android MemoryStore...");
 
-		resetCurrentSnapShot();
+		resetCurrentSnapshot();
 
 		if (persist) {
 			File dataDir = getDataDir();
@@ -48,7 +48,7 @@ public class AndroidMemoryStore extends MemoryStore {
 					logger.warn("Ignoring empty data file: {}", dataFile);
 				} else {
 					try {
-						readFromFileIO(dataFile);
+						readFromDataFile();
 						logger.debug("Data file read successfully");
 					} catch (IOException e) {
 						logger.error("Failed to read data file", e);
@@ -71,7 +71,7 @@ public class AndroidMemoryStore extends MemoryStore {
 						}
 					}
 					logger.debug("Initializing data file...");
-					syncWithFileIO(syncFile, dataFile);
+					syncWithFileIO();
 					logger.debug("Data file initialized");
 				} catch (IOException e) {
 					logger.debug("Failed to initialize data file", e);
