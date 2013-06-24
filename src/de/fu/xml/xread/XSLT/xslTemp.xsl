@@ -12,18 +12,12 @@
   <xsl:template match="rdf:RDF/rss:item">
     <table border="1">
       <tr bgcolor="#9acd32">
-        <th>Title</th>
-        <th>Link</th>
-        <th>Description</th>
       </tr>
  
       <tr>
-        <td><a href="{rss:link}"><xsl:value-of select="rss:title" /></a><br/></td>
-        <td><xsl:value-of select="rss:link" /><br /></td>
-        <td><xsl:value-of select="rss:description" /><br /></td>
-        </tr>
-      </table>
-    <xsl:text>&#013;</xsl:text>
+      </tr>
+    </table>
+  <xsl:text>&#013;</xsl:text>
     
   </xsl:template>
 </xsl:stylesheet>
