@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 	ImageButton stopButton;
 	ImageButton playButton;
 	ImageButton historyButton;
+	ImageButton twitterButton;
 	EditText editText;
 	ProgressBar progressWheel;
 	
@@ -37,6 +38,8 @@ public class MainActivity extends Activity {
         stopButton = (ImageButton)findViewById(id.stopButtonMain);
     	playButton = (ImageButton)findViewById(id.playButtonMain);
     	historyButton = (ImageButton)findViewById(id.historyButtonMain);
+    	twitterButton = (ImageButton)findViewById(id.twitterImageButton);
+    	
     	editText = (EditText)findViewById(id.editTextMain);
     	progressWheel = (ProgressBar)findViewById(id.progressWheelMain);
 
@@ -66,6 +69,10 @@ public class MainActivity extends Activity {
         	}
         	case id.historyButtonMain:{
         		history();
+        		break;
+        	}
+        	case id.twitterImageButton:{
+        		twitter();
         		break;
         	}
         	default:{
@@ -137,14 +144,19 @@ public class MainActivity extends Activity {
 		startActivity(i);
 	}
 	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event){
-		
-		//wenn auf zurueckButton geklickt wird und man in WebContent ist
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			MainActivity.this.finish();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
+	private void twitter(){
+		Intent i = new Intent(getApplicationContext(), TwitterActivity.class);
+		startActivity(i);
 	}
+	
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event){
+//		
+//		//wenn auf zurueckButton geklickt wird und man in WebContent ist
+//		if(keyCode == KeyEvent.KEYCODE_BACK){
+//			//MainActivity.this.finish();
+//			return true;
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
 }
