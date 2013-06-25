@@ -6,7 +6,7 @@
     android:gravity="center_horizontal" >
 
     <ImageView
-        android:id="@+id/twitterImageButton"
+        android:id="@+id/geoImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -15,6 +15,102 @@
         android:contentDescription="@null"
         android:src="@drawable/globe"
         android:layout_marginTop="10dp" />
+    
+    <TextView
+        android:id="@+id/textViewGeoAdresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewGeolongitude"
+        android:layout_alignRight="@+id/textViewGeolatitude"
+        android:layout_below="@+id/geoImageButton"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/adresse"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <EditText
+        android:id="@+id/editTextAdresseGeo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextLongitude"
+        android:layout_alignTop="@+id/textViewGeoAdresse"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="text" >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonSuche2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextAdresseGeo"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editTextAdresseGeo"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/suche"
+        android:enabled="false" />
+    
+    <TextView
+        android:id="@+id/textViewGeolongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewGeoAdresse"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/longitude"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <EditText
+        android:id="@+id/editTextLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textViewGeolongitude"
+        android:layout_toRightOf="@+id/textViewGeolongitude"
+        android:ems="10"
+        android:layout_marginRight="20dp"
+        android:inputType="text" >
+    </EditText>
+    
+     <TextView
+        android:id="@+id/textViewGeolatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewGeolongitude"
+        
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/latitude"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <EditText
+        android:id="@+id/editTextLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextLongitude"
+        android:layout_alignTop="@+id/textViewGeolatitude"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="text" >
+
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonSuchegeo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextLatitude"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editTextLatitude"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/suche"
+        android:enabled="false" />
 
     
 

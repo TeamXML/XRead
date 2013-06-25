@@ -6,7 +6,7 @@
     android:gravity="center_horizontal" >
 
     <ImageView
-        android:id="@+id/twitterImageButton"
+        android:id="@+id/stackoverflowImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,5 +16,63 @@
         android:src="@drawable/stackoverflow"
         android:layout_marginTop="10dp" />
 
+    <TextView
+        android:id="@+id/textViewstackoverflowFrage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/stackoverflowImageButton"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/stackoverflowFrage"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/buttonSucheStackoverflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextFrageStackoverflow"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editTextFrageStackoverflow"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:enabled="false"
+        android:text="@string/suche" />
+    
+    <TextView
+        android:id="@+id/TextViewAntwortenStackoverflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/buttonSucheStackoverflow"
+        android:layout_marginLeft="20dp"
+        android:text="@string/antwort"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/listViewAntworten"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/buttonSucheStackoverflow"
+        android:layout_below="@+id/TextViewAntwortenStackoverflow"
+        android:layout_marginLeft="20dp"
+        android:paddingBottom="20dp" >
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/editTextFrageStackoverflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textViewstackoverflowFrage"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
     
 </RelativeLayout>
