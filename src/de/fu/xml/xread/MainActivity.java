@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -110,7 +109,8 @@ public class MainActivity extends Activity {
     		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
     	else{
     		//String urlString = editText.getText().toString();
-    		String urlString = "http://linkedgeodata.org/triplify/node264695865";
+    		//String urlString = "http://10.0.2.2:8080/apache-any23-service/rdfxml/http://linkedgeodata.org/triplify/node264695865";
+    		String urlString = "http://maps.googleapis.com/maps/api/geocode/xml?address=4+Takustrasse,+Berlin,+DE&sensor=false";
     		//Wenn URL invalide
     		if(!urlString.startsWith("http://"))
     			urlString="http://"+urlString;

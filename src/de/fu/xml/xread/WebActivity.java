@@ -1,14 +1,12 @@
 package de.fu.xml.xread;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.concurrent.ExecutionException;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.transform.stream.StreamSource;
-
-import org.apache.tika.io.IOUtils;
-import org.openrdf.repository.RepositoryException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,10 +29,11 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.main.RDFTranslator;
 import de.fu.xml.xread.main.transformer.Transformer;
 
 public class WebActivity extends Activity {
+
+	private static final String TAG = "WebActivity";
 
 	private HistoryDataSource dataSource;
 
@@ -47,7 +47,7 @@ public class WebActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		this.setTitle("WebActivity");
+		this.setTitle(TAG);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webcontent);
 
@@ -257,13 +257,6 @@ public class WebActivity extends Activity {
 			}
 		});
 		
-		try {
-			DatatypeFactory factory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e1) {			
-			e1.printStackTrace();
-			return;
-		}
-		
 		// TODO: Hier scheint die stelle zu sein, an der wir unsere view
 		// einhaengen
 
@@ -271,24 +264,18 @@ public class WebActivity extends Activity {
 
 			@Override
 			protected String doInBackground(String... params) {
-				try {
-					String translateResource = RDFTranslator
-							.getInstance(getApplicationContext())
-							.translateResource(params[0]);
-					StreamSource source = new StreamSource(IOUtils
-							.toInputStream(translateResource));
-					Transformer transformer = new Transformer(
-							getApplicationContext());							
-					return transformer.transformGeoData(source);
-				} catch (RepositoryException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return null;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return null;
-				}
+					URL url;
+					try {
+						url = new URL(params[0]);
+						URLConnection urlConnection = url.openConnection();
+						InputStream result = urlConnection.getInputStream();
+						
+						Transformer transformer = new Transformer(
+								getApplicationContext());							
+						return transformer.transformGeoData(new StreamSource(result));
+					} catch (IOException e) {
+						return null;
+					}
 			}
 			
 		};
@@ -296,6 +283,7 @@ public class WebActivity extends Activity {
 		String data;
 		try {
 			data = loadHTMLTask.execute(ButtonMethods.getUri()).get();
+			Log.i(TAG, data);
 			webview.loadData(data,"text/html", "UTF-8");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
