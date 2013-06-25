@@ -10,5 +10,8 @@
     <string name="intro">An XML, JSON, Linked-Data and Microdata Reader for Android</string>
     <string name="history">History</string>
     <string name="memorystore_data">memorystore.data</string>
+    <string name="trends">Trends:</string>
+    <string name="follow">follow</string>
+    <string name="twitterUser">Username:</string>
 
 </resources>
