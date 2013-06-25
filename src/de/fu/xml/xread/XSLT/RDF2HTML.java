@@ -10,6 +10,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * 
+ * This class 'RDF2HTML' transforms RDF into HTML
+ * and erases redundant text in HTML file. 
+ * 
+ * Output : a new HTML file
+ * 
+ * @author Jaehwan Ji
+ *
+ */
+
 
 public class RDF2HTML {
 	
@@ -60,6 +71,8 @@ public class RDF2HTML {
 			boolean writable = true;
 
 			String getLine = "";
+			
+			// Write missing text
 			String data = "<!DOCTYPE html>\n<html>\n<head><title></title></head>\n<body>\n";
 			
 			writeFile.write(data);
@@ -68,6 +81,7 @@ public class RDF2HTML {
 			// Delete redeundant text
 			while ( (getLine = br.readLine()) != null) { 
 
+				// detect redundancy
 				if (getLine.contains("</table>")) {
 					writable = false;
 				}
@@ -82,13 +96,14 @@ public class RDF2HTML {
 					writeFile.write(data);
 				}
 
+				// Write not-redundant-text
 				else if (writable == true) {
 					data = getLine + "\n";
 					writeFile.write(data);
 				}
 			}
 
-			
+			// Write missing text
 			data += "</body>\n</html>";
 			
 			writeFile.write(data);

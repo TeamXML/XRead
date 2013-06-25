@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * This class detects namespaces from XML file 
+ * This class 'ItemDetector' detects namespaces from XML file 
  * and modifies XSLT file by adding namespaces.
  * 
  * Output : a new XSLT file
