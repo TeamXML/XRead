@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#FFFFFF"
-    android:gravity="center_horizontal" >
+    android:gravity="center" >
 
     <EditText
         android:id="@+id/editTextMain"
@@ -15,8 +16,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textUri" 
         android:hint="@string/hint"
+        android:inputType="textUri"
         android:lines="1"
         android:textColor="#858585" />
 
@@ -29,10 +30,10 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/android_stop"
         android:contentDescription="@null"
-        android:onClick="onButtonClick" />
-    
+        android:onClick="onButtonClick"
+        android:src="@drawable/android_stop" />
+
     <ImageButton
         android:id="@+id/historyButtonMain"
         android:layout_width="wrap_content"
@@ -42,9 +43,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/android_history"
         android:contentDescription="@null"
-        android:onClick="onButtonClick" />
+        android:onClick="onButtonClick"
+        android:src="@drawable/android_history" />
 
     <ImageButton
         android:id="@+id/playButtonMain"
@@ -55,20 +56,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/android_play"
         android:contentDescription="@null"
-        android:onClick="onButtonClick" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logoImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/intro"
-        android:textSize="20sp" />
+        android:onClick="onButtonClick"
+        android:src="@drawable/android_play" />
 
     <ProgressBar
         android:id="@+id/progressWheelMain"
@@ -78,13 +68,90 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/logoImageView"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/progressWheelMain"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@null"
-        android:src="@drawable/xreadlogo" />
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@null"
+            android:src="@drawable/xreadlogo" />
+     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:weightSum="10" >
+
+        <ImageButton
+            android:id="@+id/twitterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="5"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/twitter" />
+
+        <ImageButton
+            android:id="@+id/mediaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/dbpedia" />
+
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:weightSum="10" >
+
+        <ImageButton
+            android:id="@+id/geoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="5"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/globe" />
+
+        <ImageButton
+            android:id="@+id/stackoverflowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="5"
+            android:contentDescription="@null"
+            android:onClick="onButtonClick"
+            android:src="@drawable/stackoverflow" />
+    </LinearLayout>
 
 </RelativeLayout>
