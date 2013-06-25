@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.R.layout;
 import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
 import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 
@@ -141,7 +140,7 @@ public class MainActivity extends Activity {
     		ButtonMethods.setUri(urlString);
 			
     		editText.setText(urlString);
-			
+    		
 			String date = ButtonMethods.getDate();
 			String time = ButtonMethods.getTime();
 			

@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.xml.transform.stream.StreamSource;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -31,11 +32,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.R.layout;
 import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
 import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 import de.fu.xml.xread.main.transformer.Transformer;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class WebActivity extends Activity {
 
 	private static final String TAG = "WebActivity";
@@ -212,7 +213,7 @@ public class WebActivity extends Activity {
 		final Builder alert = new AlertDialog.Builder(this);
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-		
+
 		webview.setWebViewClient(new WebViewClient() {
 
 			@Override
@@ -263,7 +264,7 @@ public class WebActivity extends Activity {
 				alert.show();
 			}
 		});
-		
+
 		// TODO: Hier scheint die stelle zu sein, an der wir unsere view
 		// einhaengen
 
@@ -271,27 +272,28 @@ public class WebActivity extends Activity {
 
 			@Override
 			protected String doInBackground(String... params) {
-					URL url;
-					try {
-						url = new URL(params[0]);
-						URLConnection urlConnection = url.openConnection();
-						InputStream result = urlConnection.getInputStream();
-						
-						Transformer transformer = new Transformer(
-								getApplicationContext());							
-						return transformer.transformGeoData(new StreamSource(result));
-					} catch (IOException e) {
-						return null;
-					}
+				URL url;
+				try {
+					url = new URL(params[0]);
+					URLConnection urlConnection = url.openConnection();
+					InputStream result = urlConnection.getInputStream();
+
+					Transformer transformer = new Transformer(
+							getApplicationContext());
+					return transformer
+							.transformGeoData(new StreamSource(result));
+				} catch (IOException e) {
+					return null;
+				}
 			}
-			
+
 		};
-		
+
 		String data;
 		try {
 			data = loadHTMLTask.execute(ButtonMethods.getUri()).get();
 			Log.i(TAG, data);
-			webview.loadData(data,"text/html", "UTF-8");
+			webview.loadData(data, "text/html", "UTF-8");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -299,8 +301,8 @@ public class WebActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//webview.loadUrl(ButtonMethods.getUri());
+
+		// webview.loadUrl(ButtonMethods.getUri());
 
 	}
 
