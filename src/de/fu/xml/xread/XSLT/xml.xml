@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns="http://my.netscape.com/rdf/simple/0.9/">
+  
   <channel>
     <title>User's Domain</title>
     <link>http://www.java2s.com</link>
@@ -14,6 +15,10 @@
   <item>
     <title>An Introduction to XML</title>
     <link>http://www.java2s.com</link>
+  </item>
+  <item>
+    <title>ABCD</title>
+    <link>http://www.efg.com</link>
   </item>
 
 

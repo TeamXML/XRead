@@ -1,5 +1,3 @@
-package de.fu.xml.xread.XSLT;
-
 import java.io.*;
 import java.net.URISyntaxException;
 
@@ -17,10 +15,11 @@ public class RDF2HTML {
              * /Users/j1/workspace/RDF2HTML/src/in.txt
              */
             
-            Source xslt = new StreamSource("src/test.xsl");
-            Source xml = new StreamSource("src/test.xml");
+            // TODO : Does it work with this path?
+            Source xslt = new StreamSource("src/xsl.xsl");
+            Source xml = new StreamSource("src/xml.xml");
 
-            String outputFile = "src/test.html";
+            String outputFile = "src/html.html";
             OutputStream htmlFile = new FileOutputStream(outputFile);
 
             Transformer transformer = tFactory.newTransformer(xslt);
