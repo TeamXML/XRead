@@ -1,11 +1,8 @@
 package de.fu.xml.xread.main.transformer;
 
 import java.io.InputStream;
-
 import javax.xml.transform.stream.StreamSource;
-
 import de.fu.xml.xread.R;
-
 import android.content.Context;
 
 public class DefaultTransformer {
@@ -19,11 +16,11 @@ public class DefaultTransformer {
 
 	public void UpdateXSL(InputStream xml) {
 		InputStream default_xsl = _context.getResources().openRawResource(R.raw.default_xsl);
-		
 	}
 
-	public StreamSource GetTemplate() {
-		return new StreamSource(_xsl);
+	public StreamSource GetTemplate() {	
+		StreamSource _xsl = new StreamSource(_context.getResources().openRawResource(R.raw.default_xsl));
+		return _xsl;
 	}
 
 }
