@@ -83,3 +83,7 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+# Repository Files
+mainRepository
+testRepository
