@@ -23,6 +23,9 @@ public class MainActivity extends Activity {
 	ImageButton playButton;
 	ImageButton historyButton;
 	ImageButton twitterButton;
+	ImageButton globeButton;
+	ImageButton stackoverflowButton;
+	ImageButton dbpediaButton;
 	EditText editText;
 	ProgressBar progressWheel;
 	
@@ -36,7 +39,10 @@ public class MainActivity extends Activity {
         stopButton = (ImageButton)findViewById(id.stopButtonMain);
     	playButton = (ImageButton)findViewById(id.playButtonMain);
     	historyButton = (ImageButton)findViewById(id.historyButtonMain);
-    	twitterButton = (ImageButton)findViewById(id.twitterImageButton);
+    	twitterButton = (ImageButton)findViewById(id.twitterButton);
+    	globeButton = (ImageButton)findViewById(id.geoButton);
+    	stackoverflowButton = (ImageButton)findViewById(id.stackoverflowButton);
+    	dbpediaButton = (ImageButton)findViewById(id.mediaButton);
     	
     	editText = (EditText)findViewById(id.editTextMain);
     	progressWheel = (ProgressBar)findViewById(id.progressWheelMain);
@@ -67,8 +73,20 @@ public class MainActivity extends Activity {
         		history();
         		break;
         	}
-        	case id.twitterImageButton:{
+        	case id.twitterButton:{
         		twitter();
+        		break;
+        	}
+        	case id.geoButton:{
+        		geo();
+        		break;
+        	}
+        	case id.stackoverflowButton:{
+        		stackoverflow();
+        		break;
+        	}
+        	case id.mediaButton:{
+        		dbpedia();
         		break;
         	}
         	default:{
@@ -79,6 +97,7 @@ public class MainActivity extends Activity {
            
     }
 	
+
 	/**	Wenn auf Button Stop geklickt wird in Main Ansicht, dann wird der Vorgang des Ladens abgebochen. */
 	public void stopMain(){
 		//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
@@ -146,6 +165,22 @@ public class MainActivity extends Activity {
 	private void twitter(){
 		Intent i = new Intent(getApplicationContext(), TwitterActivity.class);
 		startActivity(i);
+	}
+	
+	private void geo(){
+		Intent i = new Intent(getApplicationContext(), GeoActivity.class);
+		startActivity(i);
+	}
+	
+	private void dbpedia() {
+		Intent i = new Intent(getApplicationContext(), DBPedaiActivity.class);
+		startActivity(i);
+	}
+
+	private void stackoverflow() {
+		Intent i = new Intent(getApplicationContext(), Stackoverflow.class);
+		startActivity(i);
+		
 	}
 	
 //	@Override

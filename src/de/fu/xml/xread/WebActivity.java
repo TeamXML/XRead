@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -205,7 +206,9 @@ public class WebActivity extends Activity {
 		editText.setText(ButtonMethods.getUri());
 
 		final Builder alert = new AlertDialog.Builder(this);
-
+		WebSettings webSettings = webview.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		
 		webview.setWebViewClient(new WebViewClient() {
 
 			@Override

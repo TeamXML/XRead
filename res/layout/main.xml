@@ -82,9 +82,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@null"
-            android:src="@drawable/xreadlogo" />
+            android:src="@drawable/logo" />
+
      </RelativeLayout>
 
     <LinearLayout
@@ -136,7 +138,6 @@
             android:id="@+id/geoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="5"
             android:contentDescription="@null"
