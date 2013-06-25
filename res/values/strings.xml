@@ -12,6 +12,13 @@
     <string name="memorystore_data">memorystore.data</string>
     <string name="trends">Trends:</string>
     <string name="follow">follow</string>
+    <string name="suche">suchen</string>
+    <string name="adresse">Adresse:</string>
+    <string name="antwort">Antworten:</string>
     <string name="twitterUser">Username:</string>
+    <string name="stackoverflowFrage">Frage:</string>
+    <string name="longitude">Längengrad:</string>
+    <string name="latitude">Breitengrad:</string>
+    <string name="suchbegriff">Suchbegriff:</string>
 
 </resources>
