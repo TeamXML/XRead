@@ -18,7 +18,7 @@ public class GeoDataTransformer {
 	private static Context context;
 
 	/**
-	 * Konstruktor mit übergebenem ApplicationContext, damit ein Zugriff auf die Ressourcen
+	 * Konstruktor mit ï¿½bergebenem ApplicationContext, damit ein Zugriff auf die Ressourcen
 	 * in raw erfolgen kann.
 	 * 
 	 * @param context - Context
@@ -33,7 +33,7 @@ public class GeoDataTransformer {
 	 * 
 	 * @return - StreamSource
 	 */
-	public static StreamSource GetTemplate() {
+	public StreamSource GetTemplate() {
 			
 		StreamSource xslt_geo = new StreamSource(context.getResources().openRawResource(R.raw.geodata_template));
 		

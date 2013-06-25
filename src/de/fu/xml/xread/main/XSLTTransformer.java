@@ -9,18 +9,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import android.annotation.SuppressLint;
-
 /**
  * @author Monia
  *
  */
 
-@SuppressLint("NewApi")
 public class XSLTTransformer {
 	
 	/**
-	 * Transformit XML durch XSLT zu HTML. Das Ergebnis wird als ein String zurück gegeben. 
+	 * Transformit XML durch XSLT zu HTML. Das Ergebnis wird als ein String zurueck gegeben. 
 	 * 
 	 * @param xml - StreamSource
 	 * @param xsl - StreamSource

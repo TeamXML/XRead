@@ -1,7 +1,5 @@
 package de.fu.xml.xread.main;
 
-import info.aduna.io.IOUtil;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -102,7 +100,7 @@ public class RDFTranslator {
 			extractResourceToRepository(uri);
 			connection = _repository.getConnection();
 			RepositoryResult<Statement> statements = connection.getStatements(
-					null, null, null, true);
+					null, null, null, true, context);
 			result = translateStatementsToRDFXML(statements);
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
@@ -164,19 +162,7 @@ public class RDFTranslator {
 		HTTPClient client = _runner.getHTTPClient();
 
 		DocumentSource source = new HTTPDocumentSource(client, uri);
-
-		Log.i(TAG, "Direct to output: ");
-		Log.i(TAG, "content type: " + source.getContentType());
-		Log.i(TAG, "content: " + IOUtil.readString(source.openInputStream()));
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		TripleHandler outputHandler = new RDFXMLWriter(os);
-
-		_runner.extract(source, outputHandler);
-
-		outputHandler.close();
-
-		Log.i(TAG, os.toString("UTF-8"));
-
+		
 		RepositoryConnection connection = _repository.getConnection();
 
 		TripleHandler connectionHandler = new RepositoryWriter(connection);

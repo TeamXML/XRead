@@ -17,9 +17,12 @@ import android.content.Context;
  */
 
 public class AndroidMemoryStore extends MemoryStore {
+	
+	Context _context;
 
 	public AndroidMemoryStore(Context context, String repositoryFile) {
-		super(new File(context.getFilesDir() + File.separator + repositoryFile));
+		super(context.getDir(repositoryFile, Context.MODE_PRIVATE));
+		_context = context;
 	}
 
 	@Override
@@ -29,7 +32,9 @@ public class AndroidMemoryStore extends MemoryStore {
 		resetCurrentSnapshot();
 
 		if (persist) {
+			
 			File dataDir = getDataDir();
+			AndroidLockManager locker = new AndroidLockManager(dataDir, _context);
 			dataFile = new File(dataDir, DATA_FILE_NAME);
 			syncFile = new File(dataDir, SYNC_FILE_NAME);
 
@@ -41,7 +46,9 @@ public class AndroidMemoryStore extends MemoryStore {
 					logger.error("Data file is not readable: {}", dataFile);
 					throw new SailException("Can't read data file: " + dataFile);
 				}
-
+				
+				tryToCreateDirLock(dataDir, locker);
+				
 				// Don't try to read empty files: this will result in an
 				// IOException, and the file doesn't contain any data anyway.
 				if (dataFile.length() == 0L) {

@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.main.transformer.GeoDataTransformer;
 
 public class MainActivity extends Activity {
 	
@@ -41,7 +40,6 @@ public class MainActivity extends Activity {
     	progressWheel = (ProgressBar)findViewById(id.progressWheelMain);
 
     	dataSource = new HistoryDataSource(this);
-    	new GeoDataTransformer(this.getApplicationContext());
     	
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -104,7 +102,8 @@ public class MainActivity extends Activity {
     	if(editText.length() <= 0)
     		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
     	else{
-    		String urlString = editText.getText().toString();
+    		//String urlString = editText.getText().toString();
+    		String urlString = "http://linkedgeodata.org/triplify/node264695865";
     		//Wenn URL invalide
     		if(!urlString.startsWith("http://"))
     			urlString="http://"+urlString;
@@ -116,6 +115,7 @@ public class MainActivity extends Activity {
 			
 			String date = ButtonMethods.getDate();
 			String time = ButtonMethods.getTime();
+			
 			//Datenbank-Eintrag
 			dataSource.open();
 			dataSource.createEntry(date, time, urlString);
