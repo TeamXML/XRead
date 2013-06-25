@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.content.Context;
+
 
 /**
  * 
@@ -21,14 +23,19 @@ import java.util.ArrayList;
 
 public class ItemDetector {
 
-	public static void main(String[] args) {
+	Context _context;
+	
+	public ItemDetector(Context context) {
+		_context = context;
+	}
+
+	public void updateXSL(){
 		
 		FileReader readFile; 
 		BufferedReader br; 
 		
 		FileWriter writeFile;
 		   
-//		ArrayList<String> listList = new ArrayList<String>();
 		ArrayList<String> itemList = new ArrayList<String>();
 		
 		String getLine = "";
@@ -64,7 +71,6 @@ public class ItemDetector {
 					itemList.add(data);
 				}
 			}
-			
 				
 		} catch (FileNotFoundException e) { 
 			e.printStackTrace(); 
@@ -72,21 +78,17 @@ public class ItemDetector {
 			e.printStackTrace(); 
 		} 
 		
-		
 		writable = false;
 		alreadyWritten = false;
-
 		
 		// Modify XSLT file
 		try {
-		
             // TODO : Does it work with this path?
-
+			
 			readFile = new FileReader("src/xslTemp.xsl"); 
 			br = new BufferedReader(readFile);
 			
 			writeFile = new FileWriter("src/xsl.xsl");
-	
 
 			while ( (getLine = br.readLine()) != null) { 
 				
@@ -122,7 +124,5 @@ public class ItemDetector {
 		} catch (IOException e) { 
 			e.printStackTrace(); 
 		} 
-		
-				
 	}
 }
