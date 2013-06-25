@@ -1,16 +1,10 @@
 <?xml version="1.0"?> 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="/">
+	<xsl:template match="GeocodeResponse">
 		<html>
 			<head>
 				<title>Dynamische Karte</title>
-				<meta name="viewport" content="width-device-width, initial-sclae-1.0, user-scalable-no" />
-				<style type="text/css">
-					html {height: 70%}
-					body {height: 70%; margin: 0; padding: 0}
-					#map_canvas {height: 100%}
-				</style>
 				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM8vKFTbW7cNf5N6fHXXWhRYR79TxBXis&amp;sensor=false"></script>
 				<script type="text/javascript">
 					
@@ -35,8 +29,37 @@
 				</script>
 			</head>
 			<body onload="initialize()">
-				<h1>Dynamische Karte</h1>
-				<div id="map_canvas" style="width:15%; heigt:100%"/>
+				<h3>Deine Karte</h3>
+				<table border="0">
+	 					<tr>
+	   						<td><b>Strasse</b></td>
+	   						<td>
+	   							<xsl:for-each select="result/address_component">
+	   								<xsl:if test="type[text() = 'route']"><xsl:value-of select="short_name"/></xsl:if>
+								</xsl:for-each>
+							</td>
+							<td>
+	   							<xsl:for-each select="result/address_component">
+	   								<xsl:if test="type[text() = 'street_number']"><xsl:value-of select="short_name"/></xsl:if>
+								</xsl:for-each>
+							</td>
+						</tr>
+	 					<tr>
+	   						<td><b>PLZ und Ort</b></td>
+	   						<td align="right">
+	   						<xsl:for-each select="result/address_component">
+	   							<xsl:if test="type[text() = 'postal_code']"><xsl:value-of select="short_name"/></xsl:if>
+							</xsl:for-each>
+							</td>
+							<td>
+	   						<xsl:for-each select="result/address_component">
+	   							<xsl:if test="type[text() = 'locality']"><xsl:value-of select="short_name"/></xsl:if>
+							</xsl:for-each>
+							</td>
+						</tr>
+				</table>
+				<br/>
+				<div id="map_canvas" style="width:100%; height:100%"/>
 			</body>
 		</html>
 	</xsl:template>
