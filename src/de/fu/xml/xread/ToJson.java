@@ -1,22 +1,17 @@
 package de.fu.xml.xread;
 
 
-import java.io.*;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import java.lang.Object;
-import java.lang.reflect.Array;
-
-import org.json.*;
-
-
-import com.google.gson.*;
+import com.google.gson.Gson;
 
 public class ToJson {
 	
@@ -28,7 +23,7 @@ public class ToJson {
         fileUrl = "/Users/Gayane/Desktop/firstexample.json";
    	   Object jsonobjekt = new Gson().fromJson(new FileReader(fileUrl), Object.class);
          
-       List keys = getKeysFromJson(fileUrl,myUrl);
+       List<?> keys = getKeysFromJson(fileUrl,myUrl);
            	
        String tojson = "{ '@context': 'jsonFile.jsonld', "+
     		   jsonobjekt.toString()+ "}";

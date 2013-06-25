@@ -29,14 +29,7 @@ public class MainActivity extends Activity {
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
-	
-	
-	
-    	this.setTitle("");
-=======
     	this.setTitle("MainActivity");
->>>>>>> f5584690da69d08a1dcfb77e468c1d0e875c32b9
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
@@ -61,7 +54,6 @@ public class MainActivity extends Activity {
 		
     /** Handler, wenn auf Button geklickt wird - Achtung: in Layout muss Methodenname verankert sein!*/
 	public void onButtonClick(View view){
-		Log.v("1: ", "aaaaaabbbaaaaaaaaaaaaac");
 		switch (view.getId()) {
         	case id.stopButtonMain:{
         		stopMain();
@@ -103,21 +95,10 @@ public class MainActivity extends Activity {
 			progressWheel.setVisibility(View.INVISIBLE);
 		}
 	}
-<<<<<<< HEAD
-       
-    /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
-    private void play(){
-
-    	editText = (EditText)findViewById(id.editText);
-
-    	
-//    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
-=======
 	
 	 /** Wenn auf Button Play geklickt wird, dann beginnt der Prozess des Parsens */   
     public void playMain(){
     	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
->>>>>>> f5584690da69d08a1dcfb77e468c1d0e875c32b9
     	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     	if(imm.isAcceptingText())
     		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
