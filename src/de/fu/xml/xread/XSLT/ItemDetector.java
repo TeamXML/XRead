@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * This class detects namespaces from XML file 
+ * This class 'ItemDetector' detects namespaces from XML file 
  * and modifies XSLT file by adding namespaces.
  * 
  * Output : a new XSLT file
@@ -80,6 +80,8 @@ public class ItemDetector {
 		// Modify XSLT file
 		try {
 		
+            // TODO : Does it work with this path?
+
 			readFile = new FileReader("src/xslTemp.xsl"); 
 			br = new BufferedReader(readFile);
 			
