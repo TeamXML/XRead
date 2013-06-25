@@ -1,4 +1,4 @@
-package de.fu.xml.xread;
+package de.fu.xml.xread.activities;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.R.layout;
+import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
+import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 import de.fu.xml.xread.main.transformer.Transformer;
 
 public class WebActivity extends Activity {

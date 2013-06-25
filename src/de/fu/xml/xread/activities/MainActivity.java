@@ -1,4 +1,4 @@
-package de.fu.xml.xread;
+package de.fu.xml.xread.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.R.layout;
+import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
+import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 
 public class MainActivity extends Activity {
 	
@@ -173,12 +177,12 @@ public class MainActivity extends Activity {
 	}
 	
 	private void dbpedia() {
-		Intent i = new Intent(getApplicationContext(), DBPedaiActivity.class);
+		Intent i = new Intent(getApplicationContext(), DBPediaActivity.class);
 		startActivity(i);
 	}
 
 	private void stackoverflow() {
-		Intent i = new Intent(getApplicationContext(), Stackoverflow.class);
+		Intent i = new Intent(getApplicationContext(), StackoverflowActivity.class);
 		startActivity(i);
 		
 	}
