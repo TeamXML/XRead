@@ -12,6 +12,7 @@
     <url>http://www.java2s.com/jbutton.jpg</url>
     <link>http://www.java2s.com</link>
   </image>
+  
   <item>
     <title>An Introduction to XML</title>
     <link>http://www.java2s.com</link>
@@ -19,6 +20,10 @@
   <item>
     <title>ABCD</title>
     <link>http://www.efg.com</link>
+  </item>
+  <item>
+    <title>Book of J</title>
+    <link>http://www.jjjjjjjjj.com</link>
   </item>
 
 

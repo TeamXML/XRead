@@ -78,6 +78,8 @@ public class ItemDetector {
 		// Modify XSLT file
 		try {
 		
+            // TODO : Does it work with this path?
+
 			readFile = new FileReader("src/xslTemp.xsl"); 
 			br = new BufferedReader(readFile);
 			

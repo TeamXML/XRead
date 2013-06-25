@@ -11,7 +11,7 @@
 
   <xsl:template match="rdf:RDF/rss:item">
     <table border="1">
-      <tr bgcolor="#9acd32">
+      <tr bgcolor="#9acd32">      
 <th>Title</th>
 <th>Link</th>
       </tr>
