@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" /> 
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="13"
         android:targetSdkVersion="17" />
 
     <application
@@ -17,7 +17,7 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         
         <activity
-            android:name="de.fu.xml.xread.MainActivity"
+            android:name="de.fu.xml.xread.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -27,17 +27,32 @@
         </activity>
         
         <activity 
-            android:name="de.fu.xml.xread.WebActivity"
+            android:name="de.fu.xml.xread.activities.WebActivity"         
             android:label="@string/app_name">
         </activity>
        
     	<activity 
-            android:name="de.fu.xml.xread.HistoryActivity"
+            android:name="de.fu.xml.xread.activities.HistoryActivity"
             android:label="@string/app_name">
         </activity>
         
     	<activity 
-            android:name="de.fu.xml.xread.TwitterActivity"
+            android:name="de.fu.xml.xread.activities.TwitterActivity"
+            android:label="@string/app_name">
+        </activity>
+        
+    	<activity 
+            android:name="de.fu.xml.xread.activities.GeoActivity"
+            android:label="@string/app_name">
+        </activity>
+        
+    	<activity 
+            android:name="de.fu.xml.xread.activities.StackoverflowActivity"
+            android:label="@string/app_name">
+        </activity>
+        
+    	<activity 
+            android:name="de.fu.xml.xread.activities.DBPediaActivity"
             android:label="@string/app_name">
         </activity>
          

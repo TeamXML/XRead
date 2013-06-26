@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal" >
+
+    <ImageView
+        android:id="@+id/dbpediaImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@null"
+        android:src="@drawable/dbpedia"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/textViewdbpediaSuche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dbpediaImageButton"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/suchbegriff"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/buttonSuchedbpedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextFragedbpedia"
+        android:layout_alignRight="@+id/editTextFragedbpedia"
+        android:layout_below="@+id/editTextFragedbpedia"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:text="@string/suche" />
+
+    <EditText
+        android:id="@+id/editTextFragedbpedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textViewdbpediaSuche"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/textViewdbpediaSuche"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>

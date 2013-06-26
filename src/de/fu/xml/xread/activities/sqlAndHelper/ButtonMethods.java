@@ -1,4 +1,4 @@
-package de.fu.xml.xread;
+package de.fu.xml.xread.activities.sqlAndHelper;
 
 import java.util.Calendar;
 

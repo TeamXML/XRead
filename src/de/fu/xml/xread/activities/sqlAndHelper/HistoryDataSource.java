@@ -1,4 +1,4 @@
-package de.fu.xml.xread;
+package de.fu.xml.xread.activities.sqlAndHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class HistoryDataSource {
 		
 	}
 	
-	protected List<Entry> getAllEntries(){
+	public List<Entry> getAllEntries(){
 		List<Entry> list = new ArrayList<Entry>();
 		list = new ArrayList<Entry>();
 		Cursor cursor = db.query("History", spalten, null, null, null, null, null);
