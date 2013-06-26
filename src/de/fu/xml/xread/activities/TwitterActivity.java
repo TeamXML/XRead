@@ -1,4 +1,4 @@
-package de.fu.xml.xread;
+package de.fu.xml.xread.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.R.layout;
 
 public class TwitterActivity extends Activity {
 	

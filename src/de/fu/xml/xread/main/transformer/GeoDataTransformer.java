@@ -18,7 +18,7 @@ public class GeoDataTransformer {
 	private static Context context;
 
 	/**
-	 * Konstruktor mit �bergebenem ApplicationContext, damit ein Zugriff auf die Ressourcen
+	 * Konstruktor mit uebergebenem ApplicationContext, damit ein Zugriff auf die Ressourcen
 	 * in raw erfolgen kann.
 	 * 
 	 * @param context - Context

@@ -12,7 +12,6 @@ import org.apache.any23.filter.IgnoreAccidentalRDFa;
 import org.apache.any23.http.HTTPClient;
 import org.apache.any23.source.DocumentSource;
 import org.apache.any23.source.HTTPDocumentSource;
-import org.apache.any23.writer.RDFXMLWriter;
 import org.apache.any23.writer.ReportingTripleHandler;
 import org.apache.any23.writer.RepositoryWriter;
 import org.apache.any23.writer.TripleHandler;

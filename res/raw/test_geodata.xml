@@ -3,15 +3,15 @@
 	<status>OK</status>
 	<result>
 		<type>street_address</type>
-		<formatted_address>Gieselerstraße 11, 10713 Berlin, Deutschland</formatted_address>
+		<formatted_address>Gieselerstrasse 11, 10713 Berlin, Deutschland</formatted_address>
 		<address_component>
 			<long_name>11</long_name>
 			<short_name>11</short_name>
 			<type>street_number</type>
 		</address_component>
 		<address_component>
-			<long_name>Gieselerstraße</long_name>
-			<short_name>Gieselerstraße</short_name>
+			<long_name>Gieselerstrasse</long_name>
+			<short_name>Gieselerstrasse</short_name>
 			<type>route</type>
 		</address_component>
 		<address_component>
