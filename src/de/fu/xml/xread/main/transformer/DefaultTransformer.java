@@ -19,7 +19,6 @@ public class DefaultTransformer {
 
 	public void UpdateXSL(InputStream xml) {
 		InputStream default_xsl = _context.getResources().openRawResource(R.raw.default_xsl);
-		
 	}
 
 	public StreamSource GetTemplate() {
