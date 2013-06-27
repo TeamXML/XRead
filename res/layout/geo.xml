@@ -41,16 +41,17 @@
     </EditText>
 
     <Button
-        android:id="@+id/buttonSuche2"
+        android:id="@+id/buttonAddrSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editTextAdresseGeo"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editTextAdresseGeo"
-        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/suche"
-        android:enabled="false" />
+        android:layout_marginRight="20dp"
+        android:enabled="true"
+        android:onClick="onGeoAddrSearchClick"
+        android:text="@string/suche" />
     
     <TextView
         android:id="@+id/textViewGeolongitude"

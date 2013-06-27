@@ -4,9 +4,8 @@ import java.io.InputStream;
 
 import javax.xml.transform.stream.StreamSource;
 
-import de.fu.xml.xread.R;
-
 import android.content.Context;
+import de.fu.xml.xread.R;
 
 public class DefaultTransformer {
 

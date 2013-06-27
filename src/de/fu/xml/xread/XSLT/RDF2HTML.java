@@ -1,16 +1,21 @@
 package de.fu.xml.xread.XSLT;
 
-import java.io.*;
-import java.net.URISyntaxException;
-
-import javax.xml.transform.*;
-import javax.xml.transform.stream.*;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  * 

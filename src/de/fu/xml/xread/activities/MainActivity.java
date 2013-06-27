@@ -18,6 +18,8 @@ import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 
 public class MainActivity extends Activity {
 	
+	private static final String HTTP = "http://";
+
 	protected static final String TAG = "Main Activity";
 
 	HistoryDataSource dataSource;
@@ -129,12 +131,10 @@ public class MainActivity extends Activity {
     	if(editText.length() <= 0)
     		Toast.makeText(getApplicationContext(), "Gib eine URL ein ...", Toast.LENGTH_SHORT).show();
     	else{
-    		//String urlString = editText.getText().toString();
-    		//String urlString = "http://10.0.2.2:8080/apache-any23-service/rdfxml/http://linkedgeodata.org/triplify/node264695865";
-    		String urlString = "http://maps.googleapis.com/maps/api/geocode/xml?address=4+Takustrasse,+Berlin,+DE&sensor=false";
+    		String urlString = editText.getText().toString();
     		//Wenn URL invalide
-    		if(!urlString.startsWith("http://"))
-    			urlString="http://"+urlString;
+    		if(!urlString.startsWith(HTTP))
+    			urlString=HTTP+urlString;
     	
     		//danach: Feld nicht leer und URL valide
     		ButtonMethods.setUri(urlString);

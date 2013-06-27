@@ -2,6 +2,7 @@ package de.fu.xml.xread.activities;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -96,7 +97,7 @@ public class TwitterActivity extends Activity {
 	
 	/**
 	 * 
-	 * @param twitterUser: kontrolliert, ob User mit diesem Nickname überhaupt existiert
+	 * @param twitterUser: kontrolliert, ob User mit diesem Nickname ï¿½berhaupt existiert
 	 */
 	private void checkUser(String twitterUser) {
 		// TODO Auto-generated method stub
