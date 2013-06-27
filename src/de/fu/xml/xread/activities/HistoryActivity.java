@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fu.xml.xread.R;
-import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.R.layout;
 import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
 import de.fu.xml.xread.activities.sqlAndHelper.Entry;
 import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;

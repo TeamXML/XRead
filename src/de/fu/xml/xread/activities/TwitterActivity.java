@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.R.layout;
 
 public class TwitterActivity extends Activity {
 	
