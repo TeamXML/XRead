@@ -30,6 +30,8 @@ public class Transformer {
 		items = _defaultTransFormer.DetectXML(data);
 		
 		// Update XSLT & transform from XML to HTML
-		return XSLTTransformer.transform(new StreamSource(data), _defaultTransFormer.GetTemplate(items));
+//		return XSLTTransformer.transform(new StreamSource(data), _defaultTransFormer.GetTemplate(items));
+		return _defaultTransFormer.UpdateHTML(XSLTTransformer.transform(new StreamSource(data), _defaultTransFormer.GetTemplate(items)));
+		
 	}
 }

@@ -138,7 +138,6 @@ public class DefaultTransformer {
 				sb.append(getLine + "\n");
 			}
 			
-
 			str = sb.toString();
 		}
 
@@ -147,14 +146,27 @@ public class DefaultTransformer {
 				
 		return updated_xslt;
 	}
-}
+
 	
+	//FIXME : Not working yet.
+	public String UpdateHTML(String str) {
+		String updatedHTML = str;
 		
+		if(str.contains("<Author>") || str.contains("<author>")) {
+			"<body background=\"res/raw/book.jpg\"></body>\n".concat(updatedHTML);
+		}
+		else if (str.contains("<Artist>") || str.contains("<artist>")) {
+			"<body background=\"res/raw/cd.jpg\"></body>\n".concat(updatedHTML);
+		}
 		
+		return updatedHTML;
+	}
+}
 		
 		
 						
-			
+
+
 // Please DO NOT DELETE.
 // TODO : maybe following code unnecessary
 /*
