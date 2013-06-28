@@ -14,14 +14,13 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.xml.transform.stream.StreamSource;
-import de.fu.xml.xread.R;
 import android.content.Context;
-
+import de.fu.xml.xread.R;
 public class DefaultTransformer {
 
 	Context _context;
 	String _xsl;
-	private String updatedXSLT;
+//	private String updatedXSLT;
 	
 	
 	public DefaultTransformer(Context context) {
@@ -47,12 +46,10 @@ public class DefaultTransformer {
 		InputStreamReader _default_xsl = new InputStreamReader(default_xsl);
 		BufferedReader br2 = new BufferedReader(_default_xsl);
 
-
 		StringBuilder sb = new StringBuilder();
 */
 
 		ArrayList<String> itemList = new ArrayList<String>();
-		
 		String getLine = "";
 		String data = "";
 
@@ -105,7 +102,6 @@ public class DefaultTransformer {
 		InputStreamReader xslt = new InputStreamReader(_context.getResources().openRawResource(R.raw.default_xsl));
 		BufferedReader br2 = new BufferedReader(xslt);
 
-		
 		StringBuilder sb = new StringBuilder();
 		String getLine = "";
 		String str = "";
@@ -220,6 +216,3 @@ public class DefaultTransformer {
 				e.printStackTrace(); 
 			}
 */
-			
-		
-			

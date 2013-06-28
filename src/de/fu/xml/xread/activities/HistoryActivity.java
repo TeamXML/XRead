@@ -3,13 +3,6 @@ package de.fu.xml.xread.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.fu.xml.xread.R;
-import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.R.layout;
-import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
-import de.fu.xml.xread.activities.sqlAndHelper.Entry;
-import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import de.fu.xml.xread.R;
+import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
+import de.fu.xml.xread.activities.sqlAndHelper.Entry;
+import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 
 public class HistoryActivity extends Activity {
 

@@ -1,14 +1,14 @@
 package de.fu.xml.xread.activities;
 
-import de.fu.xml.xread.R;
-import de.fu.xml.xread.R.layout;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import de.fu.xml.xread.R;
 
 public class GeoActivity extends Activity {
 	
@@ -36,6 +36,10 @@ public class GeoActivity extends Activity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	public void onGeoAddrSearchClick(View view){
+		
 	}
 
 }

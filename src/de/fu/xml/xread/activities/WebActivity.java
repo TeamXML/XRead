@@ -288,7 +288,8 @@ public class WebActivity extends Activity {
 			}
 
 		};
-
+		
+		webview.getSettings().setJavaScriptEnabled(true);
 		String data;
 		try {
 			data = loadHTMLTask.execute(ButtonMethods.getUri()).get();
