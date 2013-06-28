@@ -14,15 +14,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.xml.transform.stream.StreamSource;
-<<<<<<< HEAD
-import android.content.Context;
-import de.fu.xml.xread.R;
-=======
-
 import android.content.Context;
 import de.fu.xml.xread.R;
 
->>>>>>> 14a8bbf863dc74d330043c2ba8d0f7348dab64f1
 public class DefaultTransformer {
 
 	Context _context;
@@ -91,8 +85,6 @@ public class DefaultTransformer {
 		}
 		
 		return itemList; 
-=======
->>>>>>> 14a8bbf863dc74d330043c2ba8d0f7348dab64f1
 	}
 	
 
