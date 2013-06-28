@@ -14,8 +14,15 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import javax.xml.transform.stream.StreamSource;
+<<<<<<< HEAD
 import android.content.Context;
 import de.fu.xml.xread.R;
+=======
+
+import android.content.Context;
+import de.fu.xml.xread.R;
+
+>>>>>>> 14a8bbf863dc74d330043c2ba8d0f7348dab64f1
 public class DefaultTransformer {
 
 	Context _context;
@@ -43,6 +50,7 @@ public class DefaultTransformer {
 
 /*
 		InputStream default_xsl = _context.getResources().openRawResource(R.raw.default_xsl);
+<<<<<<< HEAD
 		InputStreamReader _default_xsl = new InputStreamReader(default_xsl);
 		BufferedReader br2 = new BufferedReader(_default_xsl);
 
@@ -83,6 +91,8 @@ public class DefaultTransformer {
 		}
 		
 		return itemList; 
+=======
+>>>>>>> 14a8bbf863dc74d330043c2ba8d0f7348dab64f1
 	}
 	
 
