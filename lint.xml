@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="WorldReadableFiles">
+        <ignore path="src/de/fu/xml/xread/main/transformer/DefaultTransformer.java" />
+    </issue>
+</lint>

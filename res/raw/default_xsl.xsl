@@ -11,14 +11,10 @@
 
   <xsl:template match="rdf:RDF/rss:item">
     <table border="1">
-      <tr bgcolor="#9acd32">      
-<th>Title</th>
-<th>Link</th>
+      <tr bgcolor="#9acd32">
       </tr>
  
       <tr>
-<td><xsl:value-of select="rss:title" /><br /></td>
-<td><xsl:value-of select="rss:link" /><br /></td>
       </tr>
     </table>
   <xsl:text>&#013;</xsl:text>

@@ -85,7 +85,7 @@ public class RDF2HTML {
 			writeFile.write(data);
 
 
-			// Delete redeundant text
+			// Delete redundant text
 			while ( (getLine = br.readLine()) != null) { 
 
 				// detect redundancy
