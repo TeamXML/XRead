@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,24 +73,6 @@ public class HistoryActivity extends XReadActivity {
 		});
 	}
 	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event){
-		//wenn auf zurueckButton geklickt wird und man in History ist
-		if(keyCode == KeyEvent.KEYCODE_BACK && ButtonMethods.getMainIsOpen()){
-			Intent i = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(i);
-			return true;
-		}
-		
-		if(keyCode == KeyEvent.KEYCODE_BACK && ButtonMethods.getWebIsOpen()){
-			Intent i = new Intent(getApplicationContext(), WebActivity.class);
-			startActivity(i);
-			return true;
-		}
-		
-		return super.onKeyDown(keyCode, event);
-	}
-
 	@Override
 	protected int getLayoutResourceId() {
 		return R.layout.history;

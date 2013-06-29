@@ -5,9 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.helper.EnablingTextWatcher;
 
 public class TwitterActivity extends XReadActivity {
 	
@@ -40,26 +38,7 @@ public class TwitterActivity extends XReadActivity {
 		trends.setAdapter(adapter);
 		trends.setClickable(false);
 		
-		username.addTextChangedListener(new TextWatcher() {
-			 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if(username.getText().toString().length() == 0) follow.setEnabled(false);
-				else follow.setEnabled(true);
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				if(username.getText().toString().length() == 0) follow.setEnabled(false);
-				else follow.setEnabled(true);
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				if(username.getText().toString().length() == 0) follow.setEnabled(false);
-				else follow.setEnabled(true);
-			}
-		});
+		username.addTextChangedListener(new EnablingTextWatcher(follow));
 		
     	follow.setOnClickListener(new View.OnClickListener(){
 
@@ -90,17 +69,6 @@ public class TwitterActivity extends XReadActivity {
 		
 	}
 	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event){
-		
-		//wenn auf zurueckButton geklickt wird und man in WebContent ist
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			startIntent(MainActivity.class);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
 	@Override
 	protected Context GetContext() {
 		return this;

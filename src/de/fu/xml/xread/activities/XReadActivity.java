@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+import de.fu.xml.xread.helper.ButtonMethods;
 
 public abstract class XReadActivity extends Activity {
 	
@@ -26,6 +27,11 @@ public abstract class XReadActivity extends Activity {
 
 	protected abstract int getLayoutResourceId();
 
+	protected void startWebSearch(String uri) {
+		ButtonMethods.setUri(uri);
+		startActivity(new Intent(getApplicationContext(), WebActivity.class));
+	}
+	
 	protected void hideKeyboard() {
 		// Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

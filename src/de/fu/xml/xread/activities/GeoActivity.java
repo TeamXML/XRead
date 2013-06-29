@@ -1,48 +1,53 @@
 package de.fu.xml.xread.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.helper.ButtonMethods;
+import de.fu.xml.xread.helper.EnablingTextWatcher;
+import de.fu.xml.xread.helper.WebHelper;
 
 public class GeoActivity extends XReadActivity {
-	
+
+	private final String TAG = "GeoActivity";
+
 	EditText geoAddrText;
-	
+	Button searchAddrButton;
+	EditText geoLatText;
+	EditText geoLongText;
+	Button searchLatLongButton;
+
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	this.setTitle("GeoActivity");
-    	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.geo);
-    	
-    	geoAddrText =  (EditText)findViewById(id.editTextAdresseGeo);
-    	
+	protected void onCreate(Bundle savedInstanceState) {
+		this.setTitle(TAG);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.geo);
+
+		geoAddrText = (EditText) findViewById(id.editTextAdresseGeo);
+		searchAddrButton = (Button) findViewById(id.buttonAddrSearch);
+		geoLatText = (EditText) findViewById(id.editTextLatitude);
+		geoLongText = (EditText) findViewById(id.editTextLongitude);
+		searchLatLongButton = (Button) findViewById(id.buttonLatLongSuche);
+
+		geoAddrText.addTextChangedListener(new EnablingTextWatcher(
+				searchAddrButton));
+
+		geoLatText.addTextChangedListener(new EnablingTextWatcher(
+				searchLatLongButton, geoLongText));
+		geoLongText.addTextChangedListener(new EnablingTextWatcher(
+				searchLatLongButton, geoLatText));
 	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event){
-		
-		//wenn auf zurueckButton geklickt wird und man in WebContent ist
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			startIntent(MainActivity.class);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-	
-	public void onGeoAddrSearchClick(View view){
+
+	public void onGeoAddrSearchClick(View view) {
+		hideKeyboard();
 		Editable searchText = geoAddrText.getText();
-		if (searchText.length() > 0) {
-			ButtonMethods.setUri("http://maps.googleapis.com/maps/api/geocode/xml?address="+ searchText +"&sensor=false");
-			startActivity(new Intent(getApplicationContext(), WebActivity.class));
+		if (geoAddrText.length() > 0) {
+			startWebSearch(WebHelper.getMapsAdressSearch(searchText.toString()));
 		}
-		
 	}
 
 	@Override

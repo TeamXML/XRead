@@ -1,17 +1,13 @@
 package de.fu.xml.xread.activities;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.xml.transform.stream.StreamSource;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,21 +25,24 @@ public class WebActivity extends AbstractXReadMainActivity {
 
 	WebView webview;
 	ImageButton refreshButton;
-	
+	Transformer transformer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setTitle(TAG);
 		super.onCreate(savedInstanceState);
-		
+
+		transformer = new Transformer(getApplicationContext());
+
 		refreshButton = (ImageButton) findViewById(id.refreshButtonWeb);
 		stopButton = (ImageButton) findViewById(id.stopButtonWeb);
 		playButton = (ImageButton) findViewById(id.playButtonWeb);
 		historyButton = (ImageButton) findViewById(id.historyButtonWeb);
 		progressWheel = (ProgressBar) findViewById(id.progressWheelWeb);
-		
+
 		webview = (WebView) findViewById(id.webView);
 		webview.getSettings().setJavaScriptEnabled(true);
-		
+
 		webview.setWebViewClient(new WebViewClient() {
 
 			@Override
@@ -72,19 +71,19 @@ public class WebActivity extends AbstractXReadMainActivity {
 		ButtonMethods.setWebIsOpen(true);
 
 		loadWebContent();
-		
+
 	}
 
 	@Override
 	protected int getLayoutResourceId() {
 		return R.layout.webcontent;
 	}
-	
+
 	@Override
-	protected Context GetContext() {		
+	protected Context GetContext() {
 		return this;
 	};
-	
+
 	/**
 	 * Handler, wenn auf Button geklickt wird - Achtung: in Layout muss
 	 * Methodenname verankert sein!
@@ -92,20 +91,20 @@ public class WebActivity extends AbstractXReadMainActivity {
 	public void onButtonClick(View view) {
 
 		super.onButtonClick(view);
-		
+
 		switch (view.getId()) {
-			case id.stopButtonWeb: {
-				stopWeb();
-				break;
-			}
-			case id.playButtonWeb: {
-				playWeb();
-				break;
-			}
-			case id.refreshButtonWeb: {
-				playWeb();
-				break;
-			}
+		case id.stopButtonWeb: {
+			stopWeb();
+			break;
+		}
+		case id.playButtonWeb: {
+			playWeb();
+			break;
+		}
+		case id.refreshButtonWeb: {
+			playWeb();
+			break;
+		}
 		}
 
 	}
@@ -127,37 +126,27 @@ public class WebActivity extends AbstractXReadMainActivity {
 		
 		String data;
 		try {
-			data = new LoadURLTask().execute(ButtonMethods.getUri()).get();
+			String uri = ButtonMethods.getUri();
+			data = new LoadURLTask().execute(uri).get();
 			webview.loadData(data, "text/html", "UTF-8");
 		} catch (Exception e) {
 			handleError(getString(R.string.error_loading_web_data), e, TAG);
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			startIntent(MainActivity.class);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-	
-	private class LoadURLTask extends AsyncTask<String, Void, String>{
+	private class LoadURLTask extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
-			URL url;
 			try {
-				url = new URL(params[0]);
-				URLConnection urlConnection = url.openConnection();
-				InputStream result = urlConnection.getInputStream();
+				URLConnection urlConnection = new URL(params[0])
+						.openConnection();
 
-				Transformer transformer = new Transformer(getApplicationContext());
-				return transformer.transformGeoData(new StreamSource(result));
+				return transformer.transformData(params[0],
+						urlConnection.getInputStream());
+
 			} catch (IOException e) {
-				handleError(getString(R.string.error_transforming_data),e, TAG);
+				handleError(getString(R.string.error_transforming_data), e, TAG);
 				return null;
 			}
 		}

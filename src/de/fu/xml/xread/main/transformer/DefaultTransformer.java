@@ -3,17 +3,14 @@ package de.fu.xml.xread.main.transformer;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.xml.transform.stream.StreamSource;
+
 import android.content.Context;
 import de.fu.xml.xread.R;
 
@@ -122,7 +119,7 @@ public class DefaultTransformer {
 				
 				// add namespaces for the first row
 				for (int i = 0; i < itemList.size(); i++) {
-					capital = itemList.get(i).substring(0, 1).toUpperCase() + itemList.get(i).substring(1);		// capitalize the first letter
+					capital = itemList.get(i).substring(0, 1).toUpperCase(Locale.US) + itemList.get(i).substring(1);		// capitalize the first letter
 					sb.append("<th>" + capital + "</th>\n");
 				}
 			}
