@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="enter_url_string">Gib eine URL ein ...</string>
+    <string name="no_need_to_cancel">Textfeld ist leer. Kein Abbruch notwendig!</string>
+    <string name="cancelled">Vorgang abgebrochen.</string>
+    <string name="some_error_happened">Hier ist was schief gelaufen!</string>
+    <string name="error_transforming_data">Beim transformieren der Daten ist ein Fehler aufgetreten!</string>
+    <string name="error_loading_web_data">Fehler beim laden der Webdaten</string>
+</resources>

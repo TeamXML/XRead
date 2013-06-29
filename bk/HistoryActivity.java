@@ -3,7 +3,7 @@ package de.fu.xml.xread.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -13,11 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
-import de.fu.xml.xread.helper.ButtonMethods;
-import de.fu.xml.xread.helper.Entry;
-import de.fu.xml.xread.helper.HistoryDataSource;
+import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
+import de.fu.xml.xread.activities.sqlAndHelper.Entry;
+import de.fu.xml.xread.activities.sqlAndHelper.HistoryDataSource;
 
-public class HistoryActivity extends XReadActivity {
+public class HistoryActivity extends Activity {
 
 	private List<Entry> list = new ArrayList<Entry>();
 	private HistoryDataSource dataSource;
@@ -26,7 +26,7 @@ public class HistoryActivity extends XReadActivity {
     protected void onCreate(Bundle savedInstanceState) {
     	this.setTitle("HistoryActivity");
     	super.onCreate(savedInstanceState);
-    	
+    	setContentView(R.layout.history);
     	dataSource = new HistoryDataSource(this);
     	
     	history();
@@ -91,14 +91,4 @@ public class HistoryActivity extends XReadActivity {
 		
 		return super.onKeyDown(keyCode, event);
 	}
-
-	@Override
-	protected int getLayoutResourceId() {
-		return R.layout.history;
-	}
-	
-	@Override
-	protected Context GetContext() {		
-		return this;
-	};
 }

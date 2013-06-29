@@ -1,27 +1,16 @@
 package de.fu.xml.xread.activities;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import de.fu.xml.xread.R;
 
-public class StackoverflowActivity extends Activity {
+public class StackoverflowActivity extends XReadActivity {
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
     	this.setTitle("StackoverflowActivity");
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.stackoverflow);
-    	
-    	//Falls Keyboard aufgeklappt ist, dann wieder zuklappen.
-    	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    	if(imm.isAcceptingText())
-    		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
     	
 	}
 	
@@ -30,11 +19,20 @@ public class StackoverflowActivity extends Activity {
 		
 		//wenn auf zurueckButton geklickt wird und man in WebContent ist
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Intent i = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(i);
+			startIntent(MainActivity.class);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected Context GetContext() {
+		return this;
+	}
+
+	@Override
+	protected int getLayoutResourceId() {
+		return R.layout.stackoverflow;
 	}
 
 }

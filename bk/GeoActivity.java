@@ -1,6 +1,5 @@
 package de.fu.xml.xread.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.helper.ButtonMethods;
+import de.fu.xml.xread.activities.sqlAndHelper.ButtonMethods;
 
 public class GeoActivity extends XReadActivity {
 	
@@ -23,6 +22,7 @@ public class GeoActivity extends XReadActivity {
     	
     	geoAddrText =  (EditText)findViewById(id.editTextAdresseGeo);
     	
+//    	hideKeyboard();
 	}
 	
 	@Override
@@ -30,7 +30,8 @@ public class GeoActivity extends XReadActivity {
 		
 		//wenn auf zurueckButton geklickt wird und man in WebContent ist
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			startIntent(MainActivity.class);
+			Intent i = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(i);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -43,15 +44,5 @@ public class GeoActivity extends XReadActivity {
 			startActivity(new Intent(getApplicationContext(), WebActivity.class));
 		}
 		
-	}
-
-	@Override
-	protected Context GetContext() {
-		return this;
-	}
-
-	@Override
-	protected int getLayoutResourceId() {
-		return R.layout.geo;
 	}
 }
