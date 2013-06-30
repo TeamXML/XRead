@@ -75,4 +75,25 @@ public class HistoryDataSource {
 		
 		return list;
 	}
+	
+	public List<String> getOnlyAllLinks(){
+		
+		List<String> list = new ArrayList<String>();
+		list = new ArrayList<String>();
+		Cursor cursor = db.query("History", spalten, null, null, null, null, null);
+		
+		cursor.moveToLast();
+		if(cursor.getCount() == 0) return list;
+		
+		while(!cursor.isBeforeFirst()){
+			Entry entry = cursorToEntry(cursor);
+			String entryString = entry.getUrl();
+			list.add(entryString);
+			cursor.moveToPrevious();
+		}
+		
+		cursor.close();
+		
+		return list;
+	}
 }
