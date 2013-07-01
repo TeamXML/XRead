@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.helper.DateHelper;
+import de.fu.xml.xread.R.id;
 import de.fu.xml.xread.helper.Entry;
 import de.fu.xml.xread.helper.HistoryDataSource;
 import de.fu.xml.xread.helper.WebHelper;
@@ -21,11 +24,21 @@ public class HistoryActivity extends XReadActivity {
 
 	private List<Entry> list = new ArrayList<Entry>();
 	private HistoryDataSource dataSource;
+	ImageButton database;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
     	this.setTitle("HistoryActivity");
     	super.onCreate(savedInstanceState);
+    	database = (ImageButton)findViewById(id.imageButtonsparql);
+    	
+    	database.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startIntent(SparqlActivity.class); 
+			}
+		});
     	
     	dataSource = new HistoryDataSource(this);
     	
