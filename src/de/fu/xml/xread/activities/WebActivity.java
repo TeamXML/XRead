@@ -1,22 +1,22 @@
 package de.fu.xml.xread.activities;
 
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.helper.ButtonMethods;
-import de.fu.xml.xread.main.transformer.Transformer;
+import de.fu.xml.xread.helper.WebHelper;
+import de.fu.xml.xread.main.Transformer;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class WebActivity extends AbstractXReadMainActivity {
@@ -39,19 +39,26 @@ public class WebActivity extends AbstractXReadMainActivity {
 		playButton = (ImageButton) findViewById(id.playButtonWeb);
 		historyButton = (ImageButton) findViewById(id.historyButtonWeb);
 		progressWheel = (ProgressBar) findViewById(id.progressWheelWeb);
+		editText = (EditText) findViewById(R.id.editTextWeb);
 
 		webview = (WebView) findViewById(id.webView);
 		webview.getSettings().setJavaScriptEnabled(true);
 
 		webview.setWebViewClient(new WebViewClient() {
-
+			
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				WebHelper.setUri(url);
+				createHistoryEntry(WebHelper.getUri());
+				loadWebContent();
+				return true;
+			}
+			
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				stopButton.setVisibility(View.VISIBLE);
 				refreshButton.setVisibility(View.INVISIBLE);
 				progressWheel.setVisibility(View.VISIBLE);
-				createHistoryEntry(url);
-				return true;
 			}
 
 			@Override
@@ -67,11 +74,7 @@ public class WebActivity extends AbstractXReadMainActivity {
 			}
 		});
 
-		ButtonMethods.setMainIsOpen(false);
-		ButtonMethods.setWebIsOpen(true);
-
 		loadWebContent();
-
 	}
 
 	@Override
@@ -118,19 +121,20 @@ public class WebActivity extends AbstractXReadMainActivity {
 	 * Stops loading and returns to MainActivity
 	 */
 	private void stopWeb() {
-		stop(editText, progressWheel);
-		startIntent(MainActivity.class);
+		progressWheel.setVisibility(View.INVISIBLE);
+		refreshButton.setVisibility(View.VISIBLE);
+		webview.stopLoading();
 	}
 
 	public void loadWebContent() {
 		
 		String data;
 		try {
-			String uri = ButtonMethods.getUri();
+			String uri = WebHelper.getUri();
 			data = new LoadURLTask().execute(uri).get();
-			webview.loadData(data, "text/html", "UTF-8");
+			webview.loadData(data, "text/html", "ISO-8859-1");
 		} catch (Exception e) {
-			handleError(getString(R.string.error_loading_web_data), e, TAG);
+			handleError("Fehler beim Laden der Webdaten", e, TAG);
 		}
 	}
 
@@ -139,14 +143,9 @@ public class WebActivity extends AbstractXReadMainActivity {
 		@Override
 		protected String doInBackground(String... params) {
 			try {
-				URLConnection urlConnection = new URL(params[0])
-						.openConnection();
-
-				return transformer.transformData(params[0],
-						urlConnection.getInputStream());
-
+				return transformer.transformData(params[0]);
 			} catch (IOException e) {
-				handleError(getString(R.string.error_transforming_data), e, TAG);
+				handleError("Fehler beim Transformieren der Daten", e, TAG);
 				return null;
 			}
 		}

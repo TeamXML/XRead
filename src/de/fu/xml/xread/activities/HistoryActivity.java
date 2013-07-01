@@ -12,9 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.fu.xml.xread.R;
-import de.fu.xml.xread.helper.ButtonMethods;
+import de.fu.xml.xread.helper.DateHelper;
 import de.fu.xml.xread.helper.Entry;
 import de.fu.xml.xread.helper.HistoryDataSource;
+import de.fu.xml.xread.helper.WebHelper;
 
 public class HistoryActivity extends XReadActivity {
 
@@ -58,12 +59,12 @@ public class HistoryActivity extends XReadActivity {
 				link = link.replace("besucht", "");
 				link = link.replace("\n", "");
 				
-				ButtonMethods.setUri(link);
-				String date = ButtonMethods.getDate();
-				String time = ButtonMethods.getTime();
+				WebHelper.setUri(link);
+				String date = DateHelper.getDate();
+				String time = DateHelper.getTime();
 				//Datenbank-Eintrag
 				dataSource.open();
-				dataSource.createEntry(date, time, ButtonMethods.getUri());
+				dataSource.createEntry(date, time, WebHelper.getUri());
 				dataSource.close();
 				
 				Intent i = new Intent(getApplicationContext(), WebActivity.class);

@@ -1,4 +1,4 @@
-package de.fu.xml.xread.main;
+package de.fu.xml.xread.main.transformer;
 
 import java.io.IOException;
 import java.io.StringWriter;
