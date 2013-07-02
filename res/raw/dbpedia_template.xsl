@@ -22,11 +22,7 @@
 							function toggleGroupsOnClick(element){
 							event.stopPropagation();
 							$(element).children(".hidden").toggle();
-							}
-							function toggleContentOnClick(element){
-							event.stopPropagation();
-							$(element).parent().children(".content").toggle();
-							}
+							}							
 						</script>
 						<style type="text/css">
 							body {
@@ -210,7 +206,7 @@
 										</div>
 										<div class="content">
 											<xsl:if test="dbpprop:author">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Autoren:</h3>
 													</div>
@@ -226,7 +222,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:publisher">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Publisher:</h3>
 													</div>
@@ -241,7 +237,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:books">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Bücher:</h3>
 													</div>
@@ -257,7 +253,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:genre">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Genre:</h3>
 													</div>
@@ -271,7 +267,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:pages">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Seiten:</h3>
 													</div>
@@ -283,7 +279,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:country">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Länder:</h3>
 													</div>
@@ -295,7 +291,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="rdf:type">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Typ:</h3>
 													</div>
@@ -309,7 +305,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dcterms:subject">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Kategorien:</h3>
 													</div>
@@ -323,7 +319,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="foaf:depiction">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Abbildungen:</h3>
 													</div>
@@ -337,7 +333,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:hasPhotoCollection">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Externe Bildersammlungen:</h3>
 													</div>
@@ -351,12 +347,12 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpedia-owl:abstract">
-												<div class="group" onclick="toggleGroupsOnClick(this)">
+												<div class="group" onclick="$(this).children('.hidden').toggle();">
 													<div class="left">
 														<h3>Zusammenfassungen:</h3>
 													</div>
 													<xsl:for-each select="dbpedia-owl:abstract">
-														<div class="group hidden" onclick="toggleGroupOnClick(this)">
+														<div class="group hidden" onclick="event.stopPropagation();$(this).children('.right').toggle();">
 															<div class="left">
 																<h4>
 																	Sprache:
@@ -371,12 +367,12 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="rdfs:comment">
-												<div class="group" onclick="toggleGroupsOnClick(this)">
+												<div class="group" onclick="$(this).children('.hidden').toggle();">
 													<div class="left">
 														<h3>Kommentare:</h3>
 													</div>
 													<xsl:for-each select="rdfs:comment">
-														<div class="group hidden" onclick="toggleGroupOnClick(this)">
+														<div class="group hidden" onclick="event.stopPropagation();$(this).children('.right').toggle();">
 															<div class="left">
 																<h4>
 																	Sprache:
@@ -391,7 +387,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="owl:sameAs">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Ähnliche Seiten:</h3>
 													</div>
@@ -405,7 +401,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpedia-owl:wikiPageExternalLink">
-												<div class="group" onclick="toggleGroupOnClick(this)">
+												<div class="group" onclick="$(this).children('.right').toggle();">
 													<div class="left">
 														<h3>Externe Links:</h3>
 													</div>
