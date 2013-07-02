@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.xml.transform.stream.StreamSource;
 
 import android.content.Context;
-import de.fu.xml.xread.main.XSLTTransformer;
 
 public class Transformer {
 	

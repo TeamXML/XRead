@@ -1,58 +1,78 @@
 package de.fu.xml.xread.activities;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
-import javax.xml.transform.stream.StreamSource;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.helper.ButtonMethods;
-import de.fu.xml.xread.main.transformer.Transformer;
+import de.fu.xml.xread.helper.WebHelper;
+import de.fu.xml.xread.main.Transformer;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class WebActivity extends AbstractXReadMainActivity {
 
 	private static final String TAG = "WebActivity";
 
+	private float _webview_downX;
+	
 	WebView webview;
 	ImageButton refreshButton;
-	
+	Transformer transformer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setTitle(TAG);
 		super.onCreate(savedInstanceState);
-		
+
+		transformer = new Transformer(getApplicationContext());
+
 		refreshButton = (ImageButton) findViewById(id.refreshButtonWeb);
 		stopButton = (ImageButton) findViewById(id.stopButtonWeb);
 		playButton = (ImageButton) findViewById(id.playButtonWeb);
 		historyButton = (ImageButton) findViewById(id.historyButtonWeb);
 		progressWheel = (ProgressBar) findViewById(id.progressWheelWeb);
-		
+		editText = (EditText) findViewById(R.id.editTextWeb);
+
 		webview = (WebView) findViewById(id.webView);
 		webview.getSettings().setJavaScriptEnabled(true);
-		
+		webview.getSettings().setDomStorageEnabled(true);
+		webview.setWebChromeClient(new WebChromeClient(){
+			@Override
+			public boolean onJsAlert(WebView view, String url, String message,
+					JsResult result) {
+				Log.i(TAG, url+ ": " +message);
+				return super.onJsAlert(view, url, message, result);
+			}
+		});
 		webview.setWebViewClient(new WebViewClient() {
-
+			
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				WebHelper.setUri(url);
+				createHistoryEntry(WebHelper.getUri());
+				loadWebContent();
+				return true;
+			}
+			
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				stopButton.setVisibility(View.VISIBLE);
 				refreshButton.setVisibility(View.INVISIBLE);
 				progressWheel.setVisibility(View.VISIBLE);
-				createHistoryEntry(url);
-				return true;
 			}
 
 			@Override
@@ -60,31 +80,56 @@ public class WebActivity extends AbstractXReadMainActivity {
 				stopButton.setVisibility(View.INVISIBLE);
 				refreshButton.setVisibility(View.VISIBLE);
 				progressWheel.setVisibility(View.INVISIBLE);
+				webview.postInvalidateDelayed(500);
 			}
-
+			
+			@Override
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				handleError(description, TAG);
 			}
+			
 		});
+		
+		 webview.setHorizontalScrollBarEnabled(false);
+		 webview.setOnTouchListener(new View.OnTouchListener() {
 
-		ButtonMethods.setMainIsOpen(false);
-		ButtonMethods.setWebIsOpen(true);
+				public boolean onTouch(View v, MotionEvent event) {
+
+	                switch (event.getAction()) {
+	                case MotionEvent.ACTION_DOWN: {
+	                    // save the x
+	                    _webview_downX = event.getX();
+	                }
+	                    break;
+
+	                case MotionEvent.ACTION_MOVE:
+	                case MotionEvent.ACTION_CANCEL:
+	                case MotionEvent.ACTION_UP: {
+	                    // set x so that it doesn't move
+	                    event.setLocation(_webview_downX, event.getY());
+	                }
+	                    break;
+
+	                }
+
+	                return false;
+	            }
+	        });
 
 		loadWebContent();
-		
 	}
 
 	@Override
 	protected int getLayoutResourceId() {
 		return R.layout.webcontent;
 	}
-	
+
 	@Override
-	protected Context GetContext() {		
+	protected Context GetContext() {
 		return this;
 	};
-	
+
 	/**
 	 * Handler, wenn auf Button geklickt wird - Achtung: in Layout muss
 	 * Methodenname verankert sein!
@@ -92,20 +137,20 @@ public class WebActivity extends AbstractXReadMainActivity {
 	public void onButtonClick(View view) {
 
 		super.onButtonClick(view);
-		
+
 		switch (view.getId()) {
-			case id.stopButtonWeb: {
-				stopWeb();
-				break;
-			}
-			case id.playButtonWeb: {
-				playWeb();
-				break;
-			}
-			case id.refreshButtonWeb: {
-				playWeb();
-				break;
-			}
+		case id.stopButtonWeb: {
+			stopWeb();
+			break;
+		}
+		case id.playButtonWeb: {
+			playWeb();
+			break;
+		}
+		case id.refreshButtonWeb: {
+			playWeb();
+			break;
+		}
 		}
 
 	}
@@ -119,45 +164,31 @@ public class WebActivity extends AbstractXReadMainActivity {
 	 * Stops loading and returns to MainActivity
 	 */
 	private void stopWeb() {
-		stop(editText, progressWheel);
-		startIntent(MainActivity.class);
+		progressWheel.setVisibility(View.INVISIBLE);
+		refreshButton.setVisibility(View.VISIBLE);
+		webview.stopLoading();
 	}
 
 	public void loadWebContent() {
 		
 		String data;
 		try {
-			data = new LoadURLTask().execute(ButtonMethods.getUri()).get();
-			webview.loadData(data, "text/html", "UTF-8");
+			String uri = WebHelper.getUri();
+			data = new LoadURLTask().execute(uri).get();
+			webview.loadData(data, "text/html", "ISO-8859-1");
 		} catch (Exception e) {
-			handleError(getString(R.string.error_loading_web_data), e, TAG);
+			handleError("Fehler beim Laden der Webdaten", e, TAG);
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			startIntent(MainActivity.class);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-	
-	private class LoadURLTask extends AsyncTask<String, Void, String>{
+	private class LoadURLTask extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
-			URL url;
 			try {
-				url = new URL(params[0]);
-				URLConnection urlConnection = url.openConnection();
-				InputStream result = urlConnection.getInputStream();
-
-				Transformer transformer = new Transformer(getApplicationContext());
-				return transformer.transformGeoData(new StreamSource(result));
+				return transformer.transformData(params[0]);
 			} catch (IOException e) {
-				handleError(getString(R.string.error_transforming_data),e, TAG);
+				handleError("Fehler beim Transformieren der Daten", e, TAG);
 				return null;
 			}
 		}

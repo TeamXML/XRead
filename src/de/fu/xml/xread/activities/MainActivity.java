@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import de.fu.xml.xread.R;
 import de.fu.xml.xread.R.id;
-import de.fu.xml.xread.helper.ButtonMethods;
+import de.fu.xml.xread.helper.WebHelper;
 
 public class MainActivity extends AbstractXReadMainActivity {
 
@@ -45,11 +45,8 @@ public class MainActivity extends AbstractXReadMainActivity {
 				editText.setText("");
 			}
 		});
-
-		ButtonMethods.setMainIsOpen(true);
-		ButtonMethods.setWebIsOpen(false);
 	}
-
+	
 	@Override
 	protected int getLayoutResourceId() {
 		return R.layout.main;
@@ -68,10 +65,6 @@ public class MainActivity extends AbstractXReadMainActivity {
 		switch (view.getId()) {
 			case id.playButtonMain: {
 				playMain();
-				break;
-			}
-			case id.stopButtonMain: {
-				stopMain();
 				break;
 			}
 			case id.twitterButton: {
@@ -102,28 +95,13 @@ public class MainActivity extends AbstractXReadMainActivity {
 			showToast("Geben Sie eine URL ein!");
 		} else {
 			String urlString = editText.getText().toString();
-			// Wenn URL invalide
-			if (!urlString.startsWith(HTTP))
-				urlString = HTTP + urlString;
-
-			// danach: Feld nicht leer und URL valide
-			ButtonMethods.setUri(urlString);
-			editText.setText(urlString);
-			createHistoryEntry(urlString);
+			WebHelper.setUri(urlString);
+			createHistoryEntry(WebHelper.getUri());
 
 			webview();
 		}
 	}
 	
-	/**
-	 * Wenn auf Button Stop geklickt wird in Main Ansicht, dann wird der Vorgang
-	 * des Ladens abgebochen.
-	 */
-	private void stopMain() {
-		hideKeyboard();
-
-		stop(editText, progressWheel);
-	}
 	
 	public void webview() {
 		startIntent(WebActivity.class);

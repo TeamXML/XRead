@@ -2,29 +2,41 @@ package de.fu.xml.xread.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import de.fu.xml.xread.R;
+import de.fu.xml.xread.R.id;
+import de.fu.xml.xread.helper.EnablingTextWatcher;
+import de.fu.xml.xread.helper.WebHelper;
 
 public class StackoverflowActivity extends XReadActivity {
 	
-	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	this.setTitle("StackoverflowActivity");
-    	super.onCreate(savedInstanceState);
-    	
-	}
+	private final String TAG = "StackoverflowActivity";
+	
+	EditText questionText;
+	Button searchButton;
 	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event){
-		
-		//wenn auf zurueckButton geklickt wird und man in WebContent ist
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			startIntent(MainActivity.class);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
+    protected void onCreate(Bundle savedInstanceState) {
+		this.setTitle(TAG);
+    	super.onCreate(savedInstanceState);
+    	
+    	questionText = (EditText)findViewById(id.editTextFrageStackoverflow);
+    	searchButton = (Button)findViewById(id.buttonSucheStackoverflow);
+    	
+    	questionText.addTextChangedListener(new EnablingTextWatcher(searchButton));
 	}
-
+	
+	public void onSearchButtonClick(View view){
+		hideKeyboard();
+		Editable searchText = questionText.getText();
+		if (questionText.length() > 0) {
+			startWebSearch(WebHelper.getStackOverflowSearch(searchText.toString()));
+		}
+	}
+	
 	@Override
 	protected Context GetContext() {
 		return this;
