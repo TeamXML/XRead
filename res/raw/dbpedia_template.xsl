@@ -12,18 +12,21 @@
 			<xsl:when test="rdf:RDF/*[2]">
 				<html>
 					<head>
-						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" ></script>
+						<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 						<script language="javascript" type="text/javascript">
-							$(document).ready(function() {
-							$(".left").click(function(){
-							$(this).siblings().toggle();
-							});
-							
-							$(".header").click(function(){
-							$(this).siblings().toggle();
-							});
-							});
 
+							function toggleGroupOnClick(element){
+							event.stopPropagation();
+							$(element).children(".right").toggle();
+							}
+							function toggleGroupsOnClick(element){
+							event.stopPropagation();
+							$(element).children(".hidden").toggle();
+							}
+							function toggleContentOnClick(element){
+							event.stopPropagation();
+							$(element).parent().children(".content").toggle();
+							}
 						</script>
 						<style type="text/css">
 							body {
@@ -173,7 +176,7 @@
 							width:100%;
 							display:none;
 							}
-							
+
 							.group.hidden{
 							display:none;
 							}
@@ -184,7 +187,7 @@
 							<xsl:for-each select="rdf:RDF/rdf:Description">
 								<xsl:if test="*[2]">
 									<div class="block">
-										<div class="header" id="header">
+										<div class="header" id="header" onclick="$(this).parent().children('.content').toggle();">
 											<h2>
 												<xsl:choose>
 													<xsl:when test="dbpprop:name">
@@ -207,7 +210,7 @@
 										</div>
 										<div class="content">
 											<xsl:if test="dbpprop:author">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Autoren:</h3>
 													</div>
@@ -223,7 +226,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:publisher">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Publisher:</h3>
 													</div>
@@ -238,7 +241,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:books">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Bücher:</h3>
 													</div>
@@ -254,7 +257,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:genre">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Genre:</h3>
 													</div>
@@ -268,7 +271,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:pages">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Seiten:</h3>
 													</div>
@@ -280,7 +283,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:country">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Länder:</h3>
 													</div>
@@ -292,7 +295,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="rdf:type">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Typ:</h3>
 													</div>
@@ -306,7 +309,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dcterms:subject">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Kategorien:</h3>
 													</div>
@@ -320,7 +323,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="foaf:depiction">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Abbildungen:</h3>
 													</div>
@@ -334,7 +337,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpprop:hasPhotoCollection">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Externe Bildersammlungen:</h3>
 													</div>
@@ -348,12 +351,12 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpedia-owl:abstract">
-												<div class="group">
+												<div class="group" onclick="toggleGroupsOnClick(this)">
 													<div class="left">
 														<h3>Zusammenfassungen:</h3>
 													</div>
 													<xsl:for-each select="dbpedia-owl:abstract">
-														<div class="group hidden">
+														<div class="group hidden" onclick="toggleGroupOnClick(this)">
 															<div class="left">
 																<h4>
 																	Sprache:
@@ -368,12 +371,12 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="rdfs:comment">
-												<div class="group">
+												<div class="group" onclick="toggleGroupsOnClick(this)">
 													<div class="left">
 														<h3>Kommentare:</h3>
 													</div>
 													<xsl:for-each select="rdfs:comment">
-														<div class="group hidden">
+														<div class="group hidden" onclick="toggleGroupOnClick(this)">
 															<div class="left">
 																<h4>
 																	Sprache:
@@ -388,7 +391,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="owl:sameAs">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Ähnliche Seiten:</h3>
 													</div>
@@ -402,7 +405,7 @@
 												</div>
 											</xsl:if>
 											<xsl:if test="dbpedia-owl:wikiPageExternalLink">
-												<div class="group">
+												<div class="group" onclick="toggleGroupOnClick(this)">
 													<div class="left">
 														<h3>Externe Links:</h3>
 													</div>

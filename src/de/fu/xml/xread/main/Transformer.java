@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import javax.xml.transform.stream.StreamSource;
 
 import android.content.Context;
-import de.fu.xml.xread.helper.HTMLReader;
+import android.util.Log;
+import de.fu.xml.xread.helper.HTTPReader;
 import de.fu.xml.xread.main.transformer.DBPediaTransformer;
 import de.fu.xml.xread.main.transformer.DefaultTransformer;
 import de.fu.xml.xread.main.transformer.GeoDataTransformer;
@@ -28,7 +29,7 @@ public class Transformer {
 
 	public String transformData(String uri) throws IOException{
 		String result = null;
-		HTMLReader reader = new HTMLReader(uri);
+		HTTPReader reader = new HTTPReader(uri);
 		switch (reader.getType()) {
 		case GEO:
 			result = transformGeoData(new StreamSource(reader.getRDFData()));
@@ -53,7 +54,9 @@ public class Transformer {
 	}
 
 	private String transFormDBPedia(StreamSource data) throws UnsupportedEncodingException, IOException {
-		return XSLTTransformer.transform(data,_dbPediaTransformer.GetTemplate());
+		String transform = XSLTTransformer.transform(data,_dbPediaTransformer.GetTemplate());
+		Log.i("Transformer", transform);
+		return transform;
 	}
 
 	private String transformGeoData(StreamSource data) throws IOException {

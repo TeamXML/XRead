@@ -7,7 +7,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -23,6 +27,8 @@ public class WebActivity extends AbstractXReadMainActivity {
 
 	private static final String TAG = "WebActivity";
 
+	private float _webview_downX;
+	
 	WebView webview;
 	ImageButton refreshButton;
 	Transformer transformer;
@@ -43,7 +49,15 @@ public class WebActivity extends AbstractXReadMainActivity {
 
 		webview = (WebView) findViewById(id.webView);
 		webview.getSettings().setJavaScriptEnabled(true);
-
+		webview.getSettings().setDomStorageEnabled(true);
+		webview.setWebChromeClient(new WebChromeClient(){
+			@Override
+			public boolean onJsAlert(WebView view, String url, String message,
+					JsResult result) {
+				Log.i(TAG, url+ ": " +message);
+				return super.onJsAlert(view, url, message, result);
+			}
+		});
 		webview.setWebViewClient(new WebViewClient() {
 			
 			@Override
@@ -66,13 +80,42 @@ public class WebActivity extends AbstractXReadMainActivity {
 				stopButton.setVisibility(View.INVISIBLE);
 				refreshButton.setVisibility(View.VISIBLE);
 				progressWheel.setVisibility(View.INVISIBLE);
+				webview.postInvalidateDelayed(500);
 			}
-
+			
+			@Override
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				handleError(description, TAG);
 			}
+			
 		});
+		
+		 webview.setHorizontalScrollBarEnabled(false);
+		 webview.setOnTouchListener(new View.OnTouchListener() {
+
+				public boolean onTouch(View v, MotionEvent event) {
+
+	                switch (event.getAction()) {
+	                case MotionEvent.ACTION_DOWN: {
+	                    // save the x
+	                    _webview_downX = event.getX();
+	                }
+	                    break;
+
+	                case MotionEvent.ACTION_MOVE:
+	                case MotionEvent.ACTION_CANCEL:
+	                case MotionEvent.ACTION_UP: {
+	                    // set x so that it doesn't move
+	                    event.setLocation(_webview_downX, event.getY());
+	                }
+	                    break;
+
+	                }
+
+	                return false;
+	            }
+	        });
 
 		loadWebContent();
 	}
