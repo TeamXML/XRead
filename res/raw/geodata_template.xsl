@@ -7,6 +7,9 @@
 	xmlns:addr="http://linkedgeodata.org/ontology/addr%3"
 	xmlns:phone="http://linkedgeodata.org/ontology/contact%3">
 
+	<xsl:output method="html" />
+
+
 	<xsl:template match="GeocodeResponse">
 		<html>
 			<head>
