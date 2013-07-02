@@ -3,16 +3,10 @@ package de.fu.xml.xread.main.transformer;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.util.ArrayList;
-
 import javax.xml.transform.stream.StreamSource;
 import android.content.Context;
 import de.fu.xml.xread.R;
@@ -43,8 +37,8 @@ public class DefaultTransformer {
 		BufferedReader br = new BufferedReader(_xml);
 
 /*
-		InputStream default_xsl = _context.getResources().openRawResource(R.raw.default_xsl);
-<<<<<<< HEAD
+		InputStream default_xsl = _context.getResources().openRawResource(
+															R.raw.default_xsl);
 		InputStreamReader _default_xsl = new InputStreamReader(default_xsl);
 		BufferedReader br2 = new BufferedReader(_default_xsl);
 
@@ -73,7 +67,8 @@ public class DefaultTransformer {
 				}
 				
 				if (alreadyWritten == false && writable == true) {
-					data = getLine.substring( (getLine.indexOf("<") +1), getLine.indexOf(">") );
+					data = getLine.substring( (getLine.indexOf("<") +1), 
+														getLine.indexOf(">") );
 					itemList.add(data);
 				}
 			}
@@ -98,10 +93,11 @@ public class DefaultTransformer {
 	 * 
 	 * author : Jaehwan Ji
 	 */
-	public StreamSource GetTemplate(ArrayList<String> items) throws IOException {
+	public StreamSource GetTemplate(ArrayList<String> items) throws IOException{
 		ArrayList<String> itemList = items;
 
-		InputStreamReader xslt = new InputStreamReader(_context.getResources().openRawResource(R.raw.default_xsl));
+		InputStreamReader xslt = new InputStreamReader(
+					_context.getResources().openRawResource(R.raw.default_xsl));
 		BufferedReader br2 = new BufferedReader(xslt);
 
 		StringBuilder sb = new StringBuilder();
@@ -122,7 +118,10 @@ public class DefaultTransformer {
 				
 				// add namespaces for the first row
 				for (int i = 0; i < itemList.size(); i++) {
-					capital = itemList.get(i).substring(0, 1).toUpperCase() + itemList.get(i).substring(1);		// capitalize the first letter
+					// capitalize the first letter
+					capital = itemList.get(i).substring(0, 1).toUpperCase() + 
+												itemList.get(i).substring(1);
+					
 					sb.append("<th>" + capital + "</th>\n");
 				}
 			}
@@ -132,7 +131,8 @@ public class DefaultTransformer {
 				
 				// add namespaces for the contents
 				for (int i = 0; i < itemList.size(); i++) {
-					sb.append("<td><xsl:value-of select=\"rss:" + itemList.get(i) + "\" /><br /></td>\n");
+					sb.append("<td><xsl:value-of select=\"rss:" + 
+										itemList.get(i) + "\" /><br /></td>\n");
 				}
 			}
 
@@ -150,15 +150,22 @@ public class DefaultTransformer {
 	}
 
 	
-	//FIXME : Not working yet.
+	// Add background image on the HTML file.
 	public String UpdateHTML(String str) {
 		String updatedHTML = str;
 		
-		if(str.contains("<Author>") || str.contains("<author>")) {
-			"<body background=\"res/raw/book.jpg\"></body>\n".concat(updatedHTML);
+		if (str.contains("<Author>") || str.contains("<author>")) {
+//			"<body background=\"res/raw/book.jpg\"></body>\n".concat(updatedHTML);
+			"<div style = \"background-image: url(res/raw/book.jpg); background-repeat: no-repeat; height:100%; width:100%; \">".concat(updatedHTML);
+			updatedHTML.concat("\n</div>");
+
+			
 		}
 		else if (str.contains("<Artist>") || str.contains("<artist>")) {
-			"<body background=\"res/raw/cd.jpg\"></body>\n".concat(updatedHTML);
+//			"<body background=\"res/raw/cd.jpg\"></body>\n".concat(updatedHTML);
+			"<div style = \"background-image: url(res/raw/cd.jpg); background-repeat: no-repeat; height:100%; width:100%; \">".concat(updatedHTML);
+			updatedHTML.concat("\n</div>");
+			
 		}
 		
 		return updatedHTML;

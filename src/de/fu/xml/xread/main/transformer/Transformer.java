@@ -3,9 +3,7 @@ package de.fu.xml.xread.main.transformer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import javax.xml.transform.stream.StreamSource;
-
 import android.content.Context;
 import de.fu.xml.xread.main.XSLTTransformer;
 
