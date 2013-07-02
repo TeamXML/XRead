@@ -5,7 +5,7 @@
 	xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dbpedia-owl="http://dbpedia.org/ontology/"
 	xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dbpprop="http://dbpedia.org/property/"
 	xmlns:ns7="http://www.w3.org/ns/prov#">
-	<xsl:output method="xml" encoding="ISO-8859-1" />
+	<xsl:output method="text/html" encoding="UTF-8" />
 
 	<xsl:template match="/">
 		<xsl:choose>
