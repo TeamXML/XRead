@@ -175,7 +175,7 @@ public class WebActivity extends AbstractXReadMainActivity {
 		try {
 			String uri = WebHelper.getUri();
 			data = new LoadURLTask().execute(uri).get();
-			webview.loadData(data, "text/html", "ISO-8859-1");
+			webview.loadData(data, "text/html", "UTF-8");
 		} catch (Exception e) {
 			handleError("Fehler beim Laden der Webdaten", e, TAG);
 		}
