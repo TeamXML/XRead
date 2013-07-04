@@ -39,7 +39,7 @@ public class WebHelper {
 	private static final String DBPEDIA_RESOURCE = DBPEDIA+"/resource/";
 
 	public static String getMapsAdressSearch(String searchString) {
-		return GOOGLE_MAPS_ADRESS_SEARCH + searchString + GOOGLE_MAPS_SUFFIX;
+		return GOOGLE_MAPS_ADRESS_SEARCH + searchString.replaceAll("\\s", "+") + GOOGLE_MAPS_SUFFIX;
 	}
 
 	public static String getStackOverflowSearch(String searchString) {

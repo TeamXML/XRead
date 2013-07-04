@@ -2,7 +2,6 @@ package de.fu.xml.xread.main.transformer;
 
 import javax.xml.transform.stream.StreamSource;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import de.fu.xml.xread.R;
 
@@ -11,7 +10,6 @@ import de.fu.xml.xread.R;
  *
  */
 
-@SuppressLint("NewApi")
 public class GeoDataTransformer {
 
 	private static Context context;
