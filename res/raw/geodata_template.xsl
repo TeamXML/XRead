@@ -5,7 +5,6 @@
 	xmlns:address="http://linkedgeodata.org/ontology/addr" 
 	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
 	<xsl:output method="html" encoding="UTF-8" />
-
 	<xsl:template match="/">
 		<html>
 			<head>
