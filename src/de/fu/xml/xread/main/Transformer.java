@@ -3,7 +3,7 @@ package de.fu.xml.xread.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.net.URISyntaxException;
 
 import javax.xml.transform.stream.StreamSource;
 
@@ -31,7 +31,7 @@ public class Transformer {
 		_twitterTransformer = new TwitterTransformer(context);
 	}
 
-	public String transformData(String uri) throws IOException{
+	public String transformData(String uri) throws IOException, URISyntaxException{
 		String result = null;
 		
 		if (!WebHelper.isTwitter()){
@@ -46,6 +46,9 @@ public class Transformer {
 			break;
 		case DBPEDIA:
 			result = transFormDBPedia(new StreamSource(reader.getRDFData()));
+			break;
+		case SPARQL:
+			result = embedIntoHTML(reader.getRawHTMLData());
 			break;
 		case DEFAULT:
 			result = transFormDefault(reader.getRDFData());
@@ -64,6 +67,10 @@ public class Transformer {
 		return result;
 	}
 
+	private String embedIntoHTML(String rawHTMLData) {
+		return "<html> <body>" + new String(rawHTMLData.substring(rawHTMLData.indexOf("}")+1)) + "</html> </body>";
+	}
+
 	private String transformTwitter(InputStream rdfData) throws IOException {
 		String transform = XSLTTransformer.transform(new StreamSource(rdfData),_twitterTransformer.GetTemplate());
 		return transform;
@@ -80,15 +87,7 @@ public class Transformer {
 	}
 
 	private String transFormDefault(InputStream data) throws IOException {
-		ArrayList<String> items = new ArrayList<String>();
-		
-		// Detect & store ITEMS from the XML file
-		items = _defaultTransFormer.DetectXML(data);
-
-		// Update XSLT & transform from XML to HTML
-		return XSLTTransformer.transform(new StreamSource(data),_defaultTransFormer.GetTemplate(items));
-		// return _defaultTransFormer.UpdateHTML(XSLTTransformer.transform(new
-		// StreamSource(data), _defaultTransFormer.GetTemplate(items)));
+		return XSLTTransformer.transform(new StreamSource(data),_defaultTransFormer.GetTemplate());
 
 	}
 }

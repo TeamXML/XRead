@@ -25,7 +25,6 @@ public class GeoActivity extends XReadActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setTitle(TAG);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.geo);
 
 		geoAddrText = (EditText) findViewById(id.editTextAdresseGeo);
 		searchAddrButton = (Button) findViewById(id.buttonAddrSearch);

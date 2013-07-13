@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -20,8 +22,8 @@ public class HTTPReader {
 	private String _rawHTML;
 
 	public HTTPReader(String url, TemplateType type)
-			throws MalformedURLException, IOException {
-		_url = url;
+			throws MalformedURLException, IOException, URISyntaxException {
+		_url = new URI(url).normalize().toString();
 		if (!(type == TemplateType.TWITTER)) {
 			URLConnection openConnection = new URL(_url).openConnection();
 			_type = WebHelper.decideContentType(_url,

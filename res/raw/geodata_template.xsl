@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:address="http://linkedgeodata.org/ontology/addr" 
+	xmlns:address="http://linkedgeodata.org/ontology/addr%3" 
 	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
 	<xsl:output method="html" encoding="UTF-8" />
 	<xsl:template match="/">

@@ -1,5 +1,7 @@
 package de.fu.xml.xread.helper;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Locale;
 
 import de.fu.xml.xread.main.transformer.TemplateType;
@@ -39,6 +41,7 @@ public class WebHelper {
 	// DBPedia
 	private static final String DBPEDIA_RESOURCE = HTTP + DBPEDIA
 			+ "/resource/";
+	private static final String QUERY = "query/";
 
 	public static String getMapsAdressSearch(String searchString) {
 		return GOOGLE_MAPS_ADRESS_SEARCH + searchString.replaceAll("\\s", "+")
@@ -58,14 +61,22 @@ public class WebHelper {
 		return TWITTER + "?name=" + string;
 	}
 
+	public static String getSPARQLSearch(String string)
+			throws UnsupportedEncodingException {
+		return ANY23_PREFIX + QUERY + URLEncoder.encode(string, "UTF-8");
+	}
+
 	public static String getAny23URI(String url) {
-		return ANY23_PREFIX + url;
+		String prefix = url.startsWith(ANY23_PREFIX) ? "" : ANY23_PREFIX;
+		return prefix + url;
 	}
 
 	public static TemplateType decideContentType(String url, String mimeType) {
 		TemplateType result = TemplateType.DEFAULT;
-
-		if (urlContains(url, GOOGLE_MAPS)) {
+		
+		if (urlContains(url, ANY23_PREFIX + QUERY)) {
+			result = TemplateType.SPARQL;
+		} else if (urlContains(url, GOOGLE_MAPS)) {
 			result = TemplateType.GEO;
 		} else if (urlContains(url, STACK_OVERFLOW)) {
 			result = TemplateType.STACKOVERFLOW;
@@ -113,8 +124,8 @@ public class WebHelper {
 		return url.toLowerCase(Locale.US).contains(
 				comparedWith.toLowerCase(Locale.US));
 	}
-	
-	public static boolean isTwitter(){
+
+	public static boolean isTwitter() {
 		return urlContains(_uri, TWITTER);
 	}
 }

@@ -1,7 +1,5 @@
 package de.fu.xml.xread.activities;
 
-import java.io.IOException;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -187,7 +185,7 @@ public class WebActivity extends AbstractXReadMainActivity {
 		protected String doInBackground(String... params) {
 			try {
 				return transformer.transformData(params[0]);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				handleError("Fehler beim Transformieren der Daten", e, TAG);
 				return null;
 			}

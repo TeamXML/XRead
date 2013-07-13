@@ -26,46 +26,6 @@
 <!--         android:text="URI :" -->
 <!--         android:textAppearance="?android:attr/textAppearanceLarge" /> -->
 
-    <Spinner
-        android:id="@+id/sparqlspinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sparql"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp" 
-        android:textAlignment="gravity"/>
-
-    <EditText
-        android:id="@+id/editTextQuery1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sparqlspinner"
-        android:layout_alignRight="@+id/sparqlspinner"
-        android:layout_below="@+id/sparqlspinner"
-        android:ems="10"
-        android:inputType="textMultiLine" >
-    </EditText>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Befehl 2" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Befehl 1" />
-
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
@@ -76,33 +36,20 @@
         android:text="Get Results"
         android:layout_marginTop="20dp" />
 
-    <Button
-        android:id="@+id/button3"
+    <EditText
+        android:id="@+id/editTextQuery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Befehl 3 " />
-
-    <EditText
-        android:id="@+id/editTextQuery2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextQuery1"
-        android:layout_alignRight="@+id/editTextQuery1"
-        android:layout_below="@+id/editTextQuery1"
+        android:layout_below="@+id/sparql"
         android:ems="10"
-        android:inputType="textMultiLine" />
-
-    <EditText
-        android:id="@+id/editTextQuery3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextQuery2"
-        android:layout_alignRight="@+id/editTextQuery2"
-        android:layout_below="@+id/editTextQuery2"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:text="Select ?id 
+Where { ?city &lt;http://dbpedia.org/property/leader> ?leader .
+?id &lt;https://api.twitter.com/location> ?city_name . 
+FILTER(STRSTARTS(STR(?leader), \&quot;Klaus Wowereit\&quot;))
+FILTER(CONTAINS(STR(?city),STR(?city_name)))}" />
 
 </RelativeLayout>
