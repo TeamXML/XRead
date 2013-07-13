@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:address="http://linkedgeodata.org/ontology/addr" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
-	<xsl:output method="text/html" encoding="UTF-8" />
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:address="http://linkedgeodata.org/ontology/addr" 
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+	<xsl:output method="html" encoding="UTF-8" />
 
 	<xsl:template match="/">
 		<html>
@@ -17,7 +19,7 @@
 					var mapOptions = {
 					zoom: 15,
 					center: new google.maps.LatLng(
-					52.4558100
+					<xsl:value-of select="//rdf:Description/geo:lat" />, <xsl:value-of select="//rdf:Description/geo:long"/>
 					,
 					13.2972926
 					),
@@ -25,9 +27,7 @@
 					};
 					map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 					var pos = new google.maps.LatLng(
-					52.4558100
-					,
-					13.2972926
+					<xsl:value-of select="//rdf:Description/geo:lat" />, <xsl:value-of select="//rdf:Description/geo:long"/>
 					);
 					var marker = new google.maps.Marker({
 					position:pos,
@@ -111,16 +111,10 @@
 					}
 
 					#main .block {
-					margin-bottom:
-					20px;
+					margin-bottom: 5px;
 					padding-top: 1px;
 					}
 
-					#main .block
-					.content .inner {
-					padding: 0
-					15px 15px;
-					}
 					#main {
 					width: 99.5%;
 					float: left;
@@ -129,33 +123,18 @@
 					{
 					padding-top: 0px;
 					}
-					#main .block
-					.content {
+					#main .block .content {
 					padding-top: 1px;
+					height:92%;
+					overflow:hidden;
 					}
-					#main
-					.block .content .inner {
-					padding: 0 15px 15px;
-					}
-					#main .block
-					.content
-					h2 {
+					#main .block .content h2 {
 					margin-left: 15px;
 					font-size: 22px;
 					text-transform:
 					normal;
 					letter-spacing: -1px;
 					line-height: 1.2em;
-					}
-					#main .block
-					.content p {
-					font-size: 13px;
-					font-style: normal;
-					font-weight:
-					normal;
-					text-transform: normal;
-					letter-spacing: normal;
-					line-height: 1.45em;
 					}
 
 					.group {
@@ -195,11 +174,6 @@
 					padding: 3px 3px
 					3px 3px;
 					width:100%;
-					display:none;
-					}
-
-					.group.hidden{
-					display:none;
 					}
 				</style>
 			</head>
@@ -207,8 +181,7 @@
 				<div id="main">
 					<xsl:for-each select="rdf:RDF/rdf:Description">
 						<div class="block">
-							<div class="header" id="header"
-								onclick="$(this).parent().children('.content').toggle();">
+							<div class="header" id="header" onclick="$(this).parent().children('.content').toggle();">
 								<h2>
 									<xsl:value-of select="rdf:label" />
 								</h2>

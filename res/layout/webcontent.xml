@@ -10,14 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/playButtonWeb"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/refreshButtonWeb"
         android:ems="10"
         android:hint="@string/hint"
-        android:textColor="#858585"
-        android:inputType="textUri" />
+        android:inputType="textUri"
+        android:textColor="#858585" />
 
     <ImageButton
         android:id="@+id/stopButtonWeb"
@@ -72,22 +71,23 @@
         android:contentDescription="@null"
         android:onClick="onButtonClick" />
 
-    <ProgressBar
-        android:id="@+id/progressWheelWeb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextWeb"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
-
     <WebView
         android:id="@+id/webView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/progressWheelWeb"
+        android:layout_below="@+id/editTextWeb"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp" />
+
+    <ProgressBar
+        android:id="@+id/progressWheelWeb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editTextWeb"
+        android:layout_alignRight="@+id/webView"
+        android:layout_alignTop="@+id/editTextWeb"
+        android:visibility="invisible" />
 
 </RelativeLayout>

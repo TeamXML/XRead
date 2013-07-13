@@ -20,5 +20,6 @@
     <string name="longitude">Längengrad:</string>
     <string name="latitude">Breitengrad:</string>
     <string name="suchbegriff">Suchbegriff:</string>
+    <string name="getTimeLine">hole Timeline</string>
 
 </resources>

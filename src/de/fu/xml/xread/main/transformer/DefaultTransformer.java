@@ -106,11 +106,6 @@ public class DefaultTransformer {
 		String getLine = "";
 		String str = "";
 		String capital = "";
-		
-			
-//		if (xml != null) 
-//			reader = new StringReader(xml);
-
 
 		// Modify(update) XSLT file by adding items
 		while ( (getLine = br2.readLine()) != null) { 
@@ -148,7 +143,6 @@ public class DefaultTransformer {
 				
 		return updated_xslt;
 	}
-
 	
 	// Add background image on the HTML file.
 	public String UpdateHTML(String str) {
@@ -171,69 +165,3 @@ public class DefaultTransformer {
 		return updatedHTML;
 	}
 }
-		
-		
-						
-
-
-// Please DO NOT DELETE.
-// TODO : maybe following code unnecessary
-/*
- 			boolean writable = true;
-
-			// Modify HTML file
-	        // Add text of <html>, <head>, <title>, <body> etc.
-			try {
-				BufferedReader br3 = new BufferedReader(reader);			
-//				writeFile = new FileWriter("src/html.html");
-				
-				// Write missing text
-				String data = "<!DOCTYPE html>\n<html>\n<head><title></title></head>\n<body>\n";
-				
-//				writeFile.write(data);
-				sb.append(getLine + "\n");
-
-
-				// Delete redundant text
-				while ( (getLine = br3.readLine()) != null) { 
-
-					// detect redundancy
-					if (getLine.contains("</table>")) {
-						writable = false;
-					}
-
-					if (getLine.contains("</table>") && writable == false) {
-						data = getLine + "\n";
-					}
-
-					else if (getLine.contains("<tr>") && writable == false) {
-						writable = true;
-						data = getLine + "\n";
-//						writeFile.write(data);
-						sb.append(data + "\n");
-					}
-
-					// Write not-redundant-text
-					else if (writable == true) {
-						data = getLine + "\n";
-//						writeFile.write(data);
-						sb.append(data + "\n");
-					}
-				}
-
-				// Write missing text
-				data += "</body>\n</html>";
-				
-//				writeFile.write(data);
-				sb.append(data + "\n");
-
-				
-//				writeFile.flush();
-//				writeFile.close();
-				
-			} catch (FileNotFoundException e) { 
-				e.printStackTrace(); 
-			} catch (IOException e) { 
-				e.printStackTrace(); 
-			}
-*/

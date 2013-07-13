@@ -14,16 +14,20 @@ import de.fu.xml.xread.main.transformer.TemplateType;
 public class HTTPReader {
 
 	private static final int BUFFER_SIZE = 1024;
-	
+
 	private TemplateType _type;
 	private String _url;
 	private String _rawHTML;
 
-	public HTTPReader(String url) throws MalformedURLException, IOException {
+	public HTTPReader(String url, TemplateType type)
+			throws MalformedURLException, IOException {
 		_url = url;
-		URLConnection openConnection = new URL(_url).openConnection();
-		_type = WebHelper.DecideTemplate(_url, openConnection.getContentType());
-		_rawHTML = streamToString(openConnection.getInputStream());
+		if (!(type == TemplateType.TWITTER)) {
+			URLConnection openConnection = new URL(_url).openConnection();
+			_type = WebHelper.decideContentType(_url,
+					openConnection.getContentType());
+			_rawHTML = streamToString(openConnection.getInputStream());
+		}
 	}
 
 	public TemplateType getType() {
@@ -35,14 +39,15 @@ public class HTTPReader {
 	}
 
 	public InputStream getRDFData() throws MalformedURLException, IOException {
-		return new URL(WebHelper.getAny23URI(_url)).openConnection().getInputStream();
+		return new URL(WebHelper.getAny23URI(_url)).openConnection()
+				.getInputStream();
 	}
-	
+
 	private String streamToString(InputStream inputStream)
 			throws UnsupportedEncodingException, IOException {
-		return copyToOutputStream(inputStream).toString("ISO-8859-1");
+		return copyToOutputStream(inputStream).toString("UTF-8");
 	}
-	
+
 	private ByteArrayOutputStream copyToOutputStream(InputStream input)
 			throws IOException {
 		byte[] buffer = new byte[BUFFER_SIZE];
@@ -61,5 +66,4 @@ public class HTTPReader {
 		}
 		return out;
 	}
-
 }

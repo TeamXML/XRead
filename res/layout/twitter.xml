@@ -47,31 +47,9 @@
         android:layout_alignLeft="@+id/editTextTwitterUser"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editTextTwitterUser"
-        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/follow"
-        android:enabled="false" />
-
-    <TextView
-        android:id="@+id/TextViewTrends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/buttonFollow"
-        android:layout_toLeftOf="@+id/editTextTwitterUser"
-        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="@string/trends"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ListView
-        android:id="@+id/listViewTrends"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="20dp"
-        android:layout_alignLeft="@+id/buttonFollow"
-        android:layout_alignTop="@+id/TextViewTrends" >
-
-    </ListView>
+        android:enabled="false"
+        android:text="@string/getTimeLine" />
 
 </RelativeLayout>
