@@ -5,7 +5,9 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -16,11 +18,21 @@ public abstract class XReadActivity extends Activity {
 	
 	Builder alert;
 	
+	private static boolean _isInitialized;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutResourceId());
 		alert = new Builder(GetContext());
+		
+		if (!_isInitialized){
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+			
+			String serverAdress = preferences.getString("serverAdress", "10.0.2.2:8080");
+			WebHelper.SetServerAdress(serverAdress);
+			_isInitialized = true;
+		}
 	}
 
 	protected abstract Context GetContext();

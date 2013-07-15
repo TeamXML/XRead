@@ -14,13 +14,14 @@ import de.fu.xml.xread.main.transformer.TemplateType;
  */
 
 public class WebHelper {
-
+	
+	private static String SERVER_ADRESS = "10.0.2.2:8080";
 	protected static final String HTTP = "http://";
 	private static String _uri;
 	private static String _baseuri;
 
 	// TODO: replace hard-coded IP (lol if ever)
-	private static final String ANY23_PREFIX = "http://10.0.2.2:8080/apache-any23-service/xread/";
+	private static String ANY23_PREFIX = "http://" + SERVER_ADRESS+"/apache-any23-service/xread/";
 
 	// Website top-level domain strings
 	private static final String STACK_OVERFLOW = "stackoverflow.com";
@@ -42,7 +43,11 @@ public class WebHelper {
 	private static final String DBPEDIA_RESOURCE = HTTP + DBPEDIA
 			+ "/resource/";
 	private static final String QUERY = "query/";
-
+	
+	public static void SetServerAdress(String serveradress){
+		SERVER_ADRESS = serveradress;
+	}
+	
 	public static String getMapsAdressSearch(String searchString) {
 		return GOOGLE_MAPS_ADRESS_SEARCH + searchString.replaceAll("\\s", "+")
 				+ GOOGLE_MAPS_SUFFIX;

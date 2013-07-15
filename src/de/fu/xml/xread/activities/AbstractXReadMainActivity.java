@@ -40,9 +40,20 @@ public abstract class AbstractXReadMainActivity extends XReadActivity {
 					break;
 				}
 		}
+		
+		switch (view.getId()) {
+		case R.id.settingsButton: {
+				settings();
+				break;
+			}
+	}
 
 	}
 	
+	private void settings() {
+		startIntent(SettingsActivity.class);
+	}
+
 	private void history() {
 		startIntent(HistoryActivity.class);
 	}
